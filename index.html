@@ -19,7 +19,8 @@
       --stroke:rgba(255,255,255,.12);
       --accent:#b15cff;--accent2:#ff63c3;--ok:#7ef0b6;
       --radius:16px;--radius-lg:22px;--max:1180px;--sticky-h:66px;
-      --shadow:0 12px 34px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.04)
+      --shadow:0 12px 34px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.04);
+      --gutter:28px; /* базовый вертикальный шаг */
     }
     *{box-sizing:border-box}
     html,body{height:100%}
@@ -43,7 +44,7 @@
     }
     nav{display:flex;align-items:center;justify-content:space-between;gap:16px}
     .brand{display:flex;align-items:center;gap:12px;font-weight:800}
-    .logo{width:38px;height:38px;border-radius:50%;background:#0c1627;border:1px solid #37a6ff44;box-shadow:0 0 0 2px #1a3f5a, 0 10px 26px rgba(55,166,255,.25);overflow:hidden}
+    .logo{width:38px;height:38px;border-radius:50%;background:#0c1627;border:1px solid #37a6ff44;box-shadow:0 0 0 2px #1a3f5a,0 10px 26px rgba(55,166,255,.25);overflow:hidden}
     .logo img{width:100%;height:100%;object-fit:cover;display:block}
     .nav-cta{display:flex;gap:10px;flex-wrap:wrap}
     .btn{appearance:none;border:1px solid transparent;border-radius:999px;padding:12px 18px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#150d25;font-weight:800;text-decoration:none;box-shadow:0 10px 28px rgba(255,99,195,.28), inset 0 1px 0 rgba(255,255,255,.35);transition:transform .15s ease, box-shadow .2s ease;white-space:nowrap}
@@ -51,21 +52,24 @@
     .btn:focus-visible{outline:3px solid #fff2;outline-offset:3px}
     .btn-ghost{background:transparent;color:var(--text);border:1px solid var(--stroke);box-shadow:var(--shadow)}
     .pill{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;border:1px solid var(--stroke);background:linear-gradient(90deg,#291846,#16102d);color:var(--muted);font-size:12px;font-weight:800;letter-spacing:.25px;text-transform:uppercase}
+    /* вертикальный ритм */
+    .stack>*{margin-top:0;margin-bottom:0}
+    .stack>*+*{margin-top:var(--gutter)}
     .hero{display:grid;grid-template-columns:0.82fr 1.18fr;gap:clamp(16px,2.4vw,28px);align-items:center;padding-top:8px}
-    .h1{font-size:clamp(30px,3.9vw,64px);line-height:1.04;margin:8px 0 12px;font-weight:800}
-    .lead{font-size:clamp(15px,1.6vw,20px);color:var(--muted);margin:0 0 22px}
+    .h1{font-size:clamp(30px,3.9vw,64px);line-height:1.04;font-weight:800;margin:0}
+    .lead{font-size:clamp(15px,1.6vw,20px);color:var(--muted);margin:0}
     .hint{font-size:13px;color:#d8ccff;padding:10px 12px;border:1px dashed #7b5ac9;border-radius:10px;background:linear-gradient(180deg,#261a46,#1a1331)}
     .media,.image{position:relative;border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--stroke);background:#0b0713;box-shadow:0 10px 30px rgba(0,0,0,.35);isolation:isolate}
     .media video,.media img{width:100%;height:100%;object-fit:cover;display:block;aspect-ratio:16/9}
-    /* Вертикальное видео */
+    /* Вертикальное видео без обрезания */
     .image.tall{display:grid;place-items:center;background:linear-gradient(180deg,#0b0713,#130a22)}
-    .image.tall .frame{width:100%;max-width:540px;aspect-ratio:9/16;border-radius:18px;border:1px solid var(--stroke);box-shadow:inset 0 0 0 1px rgba(255,255,255,.03), 0 8px 22px rgba(0,0,0,.45);background:#000;overflow:hidden}
+    .image.tall .frame{width:min(100%,540px);aspect-ratio:9/16;border-radius:18px;border:1px solid var(--stroke);box-shadow:inset 0 0 0 1px rgba(255,255,255,.03), 0 8px 22px rgba(0,0,0,.45);background:#000;overflow:hidden}
     .image.tall video{width:100%;height:100%;object-fit:contain;display:block;background:#000}
     .sec{padding:clamp(40px,8vw,72px) 0}
-    .title{font-size:clamp(22px,2.6vw,36px);margin:0 0 18px}
+    .title{font-size:clamp(22px,2.6vw,36px);margin:0}
     .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
     .card{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.03));border:1px solid var(--stroke);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
-    .step{display:flex;gap:12px}
+    .step{display:flex;gap:12px;min-height:140px}
     .num{flex:0 0 36px;height:36px;border-radius:12px;display:grid;place-items:center;font-weight:800;background:linear-gradient(135deg,#3d2a6d,#23183f);border:1px solid var(--stroke);color:#d9ccff}
     .emo{display:grid;grid-template-columns:1.05fr .95fr;gap:18px;align-items:center}
     .prices{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
@@ -106,17 +110,23 @@
     }
     /* ===== телефоны ===== */
     @media (max-width:640px){
+      :root{--gutter:22px}
       .container{padding:clamp(16px,5vw,22px)}
       .sec{padding:clamp(28px,9vw,52px) 0}
-      .sec:last-of-type{padding-bottom:calc(52px + var(--sticky-h))} /* буфер для CTA */
+      .sec + .sec{padding-top:calc(var(--gutter) * 2)} /* стабильный шаг между секциями */
       .btn{width:100%;text-align:center}
-      .nav-cta .btn{padding:10px 14px}
+      .nav-cta{gap:8px}
       .prices{grid-template-columns:1fr}
       .media,.image,.slider{border-radius:18px}
-      /* крупные медиа на мобиле */
       .hero .media,.emo .image,#beforeAfter{max-width:none;width:100%}
       .h1{font-size:30px;line-height:1.08}
+      .lead{font-size:15px}
+      .stack>*+*{margin-top:var(--gutter)}
+      /* одинаковая высота карточек шагов на мобиле */
+      .step{min-height:unset}
       .slider .knob{width:44px;height:44px}
+      /* микровыравнивание подписей/кнопок внутри секций */
+      .cta-final{row-gap:10px}
     }
     @media (max-width:380px){
       .container{padding:14px}
@@ -146,10 +156,10 @@
   </div>
 </header>
 
-<main>
+<main class="stack">
   <!-- HERO -->
   <section class="container hero">
-    <div>
+    <div class="stack">
       <span class="pill">Быстро • Конфиденциально • Просто</span>
       <h1 class="h1" id="heroTitle">Оживим вашу фотографию в трогательное видео</h1>
       <p class="lead">Одно фото — <b>85 ₽</b>. Идеально для подарка и семейной памяти.</p>
@@ -157,7 +167,7 @@
         <a class="btn" href="https://t.me/podarokphoto_bot?start=web" target="_blank" rel="noopener">Оживить фото</a>
         <a class="btn btn-ghost" href="https://t.me/podarokphoto_bot?start=order" target="_blank" rel="noopener">Видео под ключ</a>
       </div>
-      <p class="hint" style="margin-top:14px">Загрузите фото как в альбоме: голова сверху, земля снизу.</p>
+      <p class="hint">Загрузите фото как в альбоме: голова сверху, земля снизу.</p>
     </div>
     <figure class="media aos" aria-label="Видео-превью результата">
       <video autoplay muted playsinline loop preload="metadata">
@@ -169,7 +179,7 @@
   <!-- Как это работает -->
   <section class="container sec">
     <h2 class="title">Как это работает</h2>
-    <div class="grid">
+    <div class="grid" style="margin-top:var(--gutter)">
       <div class="card step aos"><div class="num">1</div><div><h3 style="margin:0 0 6px">Откройте бота</h3><p class="muted">Перейдите в <b>@podarokphoto_bot</b> и нажмите «Оживить фото».</p></div></div>
       <div class="card step aos"><div class="num">2</div><div><h3 style="margin:0 0 6px">Отправьте фотографию</h3><p class="muted">Чёткий портрет. Ориентация «как в альбоме».</p></div></div>
       <div class="card step aos"><div class="num">3</div><div><h3 style="margin:0 0 6px">Опишите пожелания</h3><p class="muted">Моргание, лёгкая улыбка, аккуратный поворот.</p></div></div>
@@ -181,12 +191,12 @@
   <section class="container sec emo">
     <figure class="image tall aos" aria-label="Вертикальное видео реакции">
       <div class="frame">
-        <video autoplay muted playsinline loop preload="metadata" poster="">
+        <video autoplay muted playsinline loop preload="metadata">
           <source src="https://nikitasolonukha.github.io/lending/%D0%B2%D0%B8%D0%B4%D0%B5%D0%BE/Video%20(3).mp4" type="video/mp4">
         </video>
       </div>
     </figure>
-    <div class="aos">
+    <div class="stack aos">
       <h2 class="title">Память, которая снова дышит</h2>
       <p class="muted" style="font-size:18px">Оживлённое фото — бережная реставрация и эмоции, к которым хочется возвращаться.</p>
       <p class="muted">Тёплый подарок с историей.</p>
@@ -196,7 +206,7 @@
   <!-- До/После -->
   <section class="container sec">
     <h2 class="title">Примеры «До/После»</h2>
-    <div class="slider aos" id="beforeAfter">
+    <div class="slider aos" id="beforeAfter" style="margin-top:var(--gutter)">
       <img id="beforePhoto" class="base" alt="Старое фото">
       <div class="after">
         <video autoplay muted playsinline loop preload="metadata">
@@ -206,13 +216,13 @@
       <div class="handle" aria-hidden="true"><div class="bar"></div><div class="knob"></div></div>
       <input class="visually-hidden" type="range" min="0" max="100" value="58" aria-label="Ползунок сравнения">
     </div>
-    <p class="muted" style="margin-top:8px">До — фото. После — живое видео.</p>
+    <p class="muted" style="margin-top:10px">До — фото. После — живое видео.</p>
   </section>
 
   <!-- Тарифы -->
   <section class="container sec">
     <h2 class="title">Тарифы</h2>
-    <div class="prices">
+    <div class="prices" style="margin-top:var(--gutter)">
       <div class="card price aos">
         <h3 style="margin:0">Оживить одно фото</h3>
         <div class="rub">85 ₽</div>
@@ -234,7 +244,7 @@
   <!-- Отзывы -->
   <section class="container sec">
     <h2 class="title">Отзывы</h2>
-    <div class="reviews card aos" aria-roledescription="карусель отзывов">
+    <div class="reviews card aos" aria-roledescription="карусель отзывов" style="margin-top:var(--gutter)">
       <div class="track" id="reviewsTrack">
         <div class="card review"><blockquote>«Мама расплакалась от счастья. Словно увидела папу снова.»</blockquote><footer>— Анастасия</footer></div>
         <div class="card review"><blockquote>«Подарили бабушке — весь стол улыбался. Цена символическая, эмоции бесценны.»</blockquote><footer>— Иван</footer></div>
@@ -246,7 +256,7 @@
   <!-- Финальный CTA -->
   <section class="container sec center">
     <h2 class="title">Готовы вернуть тёплые эмоции?</h2>
-    <div class="cta-final aos">
+    <div class="cta-final aos" style="margin-top:var(--gutter)">
       <a class="btn" href="https://t.me/podarokphoto_bot?start=web" target="_blank" rel="noopener">Оживить фото — 85 ₽</a>
       <a class="btn btn-ghost" href="https://t.me/podarokphoto_bot?start=order" target="_blank" rel="noopener">Видео под ключ</a>
     </div>
@@ -310,7 +320,7 @@
     track.addEventListener('mouseleave',()=>t=setInterval(tick,3500));
   }
 
-  // Микротипографика: неразрывные пробелы перед одно-буквенными (чтобы «в» не падала на строку)
+  // Микротипографика: «в/к/и…» не висят в начале строк
   (function(){
     const nbsp=(s)=>s.replace(/(^|\s)([вксуаои])\s(?=\S)/gi,(_,p,one)=>`${p}${one}\u00A0`);
     const h1=document.getElementById('heroTitle'); h1.textContent = nbsp(h1.textContent);
