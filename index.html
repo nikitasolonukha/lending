@@ -4,98 +4,79 @@
   <meta charset="utf-8">
   <title>Оживление и реставрация фото — Telegram-бот @podarokphoto_bot</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Оживим фото в трогательное видео за 85 ₽. Быстро, конфиденциально и просто. Запустите @podarokphoto_bot и верните эмоции и память.">
+  <meta name="description" content="Оживим одно фото в трогательное видео за 85 ₽. Быстро, конфиденциально и просто. Запустите @podarokphoto_bot и верните эмоции и память.">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Оживление и реставрация фото — бот в Telegram">
   <meta property="og:description" content="Оживите фото за 85 ₽. Быстро, конфиденциально и просто.">
   <meta property="og:image" content="https://images.unsplash.com/photo-1511765224389-37f0e77cf0eb?q=80&auto=format&fit=crop&w=1200&h=630">
-  <meta name="theme-color" content="#1b1226">
+  <meta name="theme-color" content="#140c22">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg1:#0f0a1a;--bg2:#1b1230;--glass:rgba(255,255,255,.06);--stroke:rgba(255,255,255,.12);
-      --text:#e9e5f5;--muted:#b5a9d3;--accent:#b15cff;--accent2:#ff63c3;--ok:#7ef0b6;
-      --shadow:0 10px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.04);
-      --radius:16px;--radius-lg:22px;--max:1180px
+      --bg1:#0f0a1a;--bg2:#1b1230;--text:#ece7fb;--muted:#b7abd7;
+      --glass:rgba(255,255,255,.06);--stroke:rgba(255,255,255,.12);
+      --accent:#b15cff;--accent2:#ff63c3;--ok:#7ef0b6;
+      --radius:16px;--radius-lg:22px;--max:1180px;
+      --shadow:0 12px 34px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.04)
     }
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
-      margin:0;font-family:Manrope,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      color:var(--text);background:
-        radial-gradient(1200px 700px at 10% -10%, #341d55 0%, transparent 60%),
-        radial-gradient(1000px 600px at 110% 10%, #2a1558 0%, transparent 55%),
+      margin:0;color:var(--text);
+      font-family:Manrope,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background:
+        radial-gradient(1200px 700px at -10% 0%,#3b1f64 0%,transparent 55%),
+        radial-gradient(1000px 600px at 110% 10%,#2a1558 0%,transparent 55%),
         linear-gradient(180deg,var(--bg1),var(--bg2));
       overflow-x:hidden
     }
     a{color:inherit}
     .container{max-width:var(--max);margin-inline:auto;padding:24px}
-    header{position:sticky;top:0;z-index:40;background:linear-gradient(180deg,rgba(15,10,26,.9),rgba(15,10,26,.4) 60%,transparent);backdrop-filter:saturate(140%) blur(8px)}
-    nav{display:flex;align-items:center;gap:16px;justify-content:space-between}
-    .brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.2px}
-    .logo{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 10px 25px rgba(177,92,255,.35)}
+    header{position:sticky;top:0;z-index:40;background:linear-gradient(180deg,rgba(15,10,26,.92),rgba(15,10,26,.5) 65%,transparent);backdrop-filter:saturate(140%) blur(8px)}
+    nav{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:800}
+    .logo{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 10px 26px rgba(177,92,255,.35)}
     .nav-cta{display:flex;gap:10px;flex-wrap:wrap}
     .btn{
-      appearance:none;border:1px solid transparent;border-radius:999px;padding:12px 18px;font-weight:700;
-      background:linear-gradient(135deg,var(--accent),var(--accent2));color:#120a1f;
-      text-decoration:none;box-shadow:0 8px 24px rgba(255,99,195,.25), inset 0 1px 0 rgba(255,255,255,.35);
-      transition:transform .15s ease, box-shadow .2s ease, filter .2s ease
+      appearance:none;border:1px solid transparent;border-radius:999px;padding:12px 18px;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));color:#150d25;font-weight:800;
+      text-decoration:none;box-shadow:0 10px 28px rgba(255,99,195,.28), inset 0 1px 0 rgba(255,255,255,.35);
+      transition:transform .15s ease, box-shadow .2s ease
     }
-    .btn:hover{transform:translateY(-1px);box-shadow:0 14px 28px rgba(255,99,195,.32)}
+    .btn:hover{transform:translateY(-1px);box-shadow:0 16px 30px rgba(255,99,195,.34)}
     .btn:focus-visible{outline:3px solid #fff2;outline-offset:3px}
-    .btn-ghost{
-      background:transparent;color:var(--text);border-color:var(--stroke);
-      box-shadow:var(--shadow)
-    }
-    .pill{font-size:12px;font-weight:800;letter-spacing:.3px;text-transform:uppercase;background:linear-gradient(90deg,#2b1b52,#1a1430);border:1px solid var(--stroke);padding:6px 10px;border-radius:999px;color:var(--muted);display:inline-flex;gap:8px;align-items:center}
-    .hero{
-      display:grid;grid-template-columns:0.85fr 1.15fr;gap:28px;align-items:center;padding-top:18px
-    }
-    .h1{font-size: clamp(30px, 3.8vw, 64px);line-height:1.02;margin:6px 0 10px;font-weight:800}
-    .lead{font-size: clamp(15px,1.6vw,20px);color:var(--muted);margin:0 0 22px}
-    .hint{font-size:13px;color:#d7c9ff;padding:10px 12px;border:1px dashed #7b5ac9;border-radius:10px;background:linear-gradient(180deg,#261a46,#1a1331)}
-    .media{
-      position:relative;border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--stroke);
-      background:#0b0713;box-shadow:0 10px 30px rgba(0,0,0,.35)
-    }
-    .media video{width:100%;height:100%;display:block;object-fit:cover;aspect-ratio:16/9}
-    .glow{
-      position:absolute;inset:auto auto 12px 12px;background:linear-gradient(135deg,var(--accent),var(--accent2));
-      filter:blur(28px);opacity:.35;width:160px;height:160px;border-radius:50%;pointer-events:none
-    }
+    .btn-ghost{background:transparent;color:var(--text);border:1px solid var(--stroke);box-shadow:var(--shadow)}
+    .pill{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;border:1px solid var(--stroke);background:linear-gradient(90deg,#291846,#16102d);color:var(--muted);font-size:12px;font-weight:800;letter-spacing:.25px;text-transform:uppercase}
+    .hero{display:grid;grid-template-columns:0.82fr 1.18fr;gap:28px;align-items:center;padding-top:16px}
+    .h1{font-size:clamp(30px,3.9vw,64px);line-height:1.03;margin:8px 0 12px;font-weight:800}
+    .lead{font-size:clamp(15px,1.6vw,20px);color:var(--muted);margin:0 0 22px}
+    .hint{font-size:13px;color:#d8ccff;padding:10px 12px;border:1px dashed #7b5ac9;border-radius:10px;background:linear-gradient(180deg,#261a46,#1a1331)}
+    .media{position:relative;border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--stroke);background:#0b0713;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+    .media video{width:100%;height:100%;object-fit:cover;display:block;aspect-ratio:16/9}
+    .glow{position:absolute;inset:auto auto 12px 12px;width:160px;height:160px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));filter:blur(28px);opacity:.35;pointer-events:none}
     .sec{padding:64px 0}
-    .title{font-size: clamp(22px,2.6vw,36px);margin:0 0 18px}
+    .title{font-size:clamp(22px,2.6vw,36px);margin:0 0 18px}
     .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-    .card{
-      background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.03));
-      border:1px solid var(--stroke);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)
-    }
+    .card{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.03));border:1px solid var(--stroke);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
     .step{display:flex;gap:12px}
     .num{flex:0 0 36px;height:36px;border-radius:12px;display:grid;place-items:center;font-weight:800;background:linear-gradient(135deg,#3d2a6d,#23183f);border:1px solid var(--stroke);color:#d9ccff}
     .emo{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;align-items:center}
     .emo .image{border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--stroke)}
-    .emo .image video{width:100%;height:100%;object-fit:cover;display:block;aspect-ratio:16/9}
+    .emo .image video{width:100%;height:100%;display:block;object-fit:cover;aspect-ratio:16/9}
     .prices{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
     .price{display:flex;flex-direction:column;gap:14px}
-    .rub{font-size: clamp(26px,3vw,38px);font-weight:800;color:#ffe1ff}
+    .rub{font-size:clamp(26px,3vw,38px);font-weight:800;color:#ffe6ff}
     .bullets{display:grid;gap:8px;color:var(--muted);font-size:14px}
     .center{text-align:center}
-    .slider{
-      position:relative;border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--stroke);background:#0b0713
-    }
+    .slider{position:relative;border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--stroke);background:#0b0713}
     .slider .base{width:100%;height:auto;display:block;object-fit:cover;aspect-ratio:16/9}
-    .slider .after{
-      position:absolute;inset:0;width:50%;overflow:hidden;transition:none
-    }
-    .slider .after video{width:200%;height:100%;object-fit:cover}
+    .slider .after{position:absolute;inset:0;clip-path:inset(0 50% 0 0)}
+    .slider .after video{width:100%;height:100%;object-fit:cover;display:block}
     .slider .handle{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none}
-    .slider .bar{position:absolute;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--accent),var(--accent2));left:50%;transform:translateX(-50%)}
-    .slider .knob{
-      position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:56px;height:56px;border-radius:50%;
-      background:linear-gradient(135deg,var(--accent),var(--accent2));border:3px solid #160e29;box-shadow:0 10px 24px rgba(177,92,255,.35)
-    }
+    .slider .bar{position:absolute;top:0;bottom:0;width:2px;left:50%;transform:translateX(-50%);background:linear-gradient(180deg,var(--accent),var(--accent2))}
+    .slider .knob{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));border:3px solid #160e29;box-shadow:0 10px 24px rgba(177,92,255,.35)}
     .reviews{position:relative;overflow:hidden}
     .track{display:flex;gap:16px;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
     .review{min-width:calc(50% - 8px)}
@@ -103,31 +84,18 @@
     .review footer{margin-top:10px;color:var(--muted);font-size:14px}
     details{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.03));border:1px solid var(--stroke);border-radius:12px;padding:16px}
     details+details{margin-top:10px}
-    summary{cursor:pointer;font-weight:700;outline:none}
+    summary{cursor:pointer;font-weight:700}
     summary:focus-visible{outline:3px solid #fff2;border-radius:8px}
     .cta-final{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-    .sticky-cta{
-      position:fixed;left:0;right:0;bottom:0;z-index:50;padding:10px 14px;display:flex;align-items:center;gap:10px;justify-content:center;
-      backdrop-filter:saturate(150%) blur(8px);background:linear-gradient(180deg,rgba(18,11,33,.3),rgba(18,11,33,.65));
-      border-top:1px solid var(--stroke)
-    }
+    .sticky-cta{position:fixed;left:0;right:0;bottom:0;z-index:50;padding:10px 14px;display:flex;align-items:center;gap:10px;justify-content:center;backdrop-filter:saturate(150%) blur(8px);background:linear-gradient(180deg,rgba(18,11,33,.3),rgba(18,11,33,.65));border-top:1px solid var(--stroke)}
     .sticky-cta .btn{padding:12px 16px}
     .pricechip{font-weight:800;color:#120a1f;background:linear-gradient(135deg,#9cf6d3,#7ef0b6);border-radius:999px;padding:8px 12px}
     .muted{color:var(--muted)}
-    .aos{opacity:0;transform:translateY(16px) scale(.98);transition:transform .6s cubic-bezier(.2,.8,.2,1), opacity .6s ease}
+    .aos{opacity:0;transform:translateY(16px) scale(.985);transition:transform .6s cubic-bezier(.2,.8,.2,1),opacity .6s ease}
     .aos.in{opacity:1;transform:none}
     footer{padding:60px 0 120px;color:#a896d7;text-align:center}
-    @media (max-width:1180px){
-      .hero{grid-template-columns:1fr;gap:18px}
-      .emo{grid-template-columns:1fr}
-      .review{min-width:100%}
-    }
-    @media (max-width:640px){
-      .grid{grid-template-columns:1fr}
-      .prices{grid-template-columns:1fr}
-      .btn{width:100%;text-align:center}
-      .nav-cta .btn{padding:10px 14px}
-    }
+    @media(max-width:1180px){.hero{grid-template-columns:1fr}.emo{grid-template-columns:1fr}.review{min-width:100%}}
+    @media(max-width:640px){.grid{grid-template-columns:1fr}.prices{grid-template-columns:1fr}.btn{width:100%;text-align:center}}
     .visually-hidden{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap}
   </style>
 </head>
@@ -152,7 +120,7 @@
     <div>
       <span class="pill">Быстро • Конфиденциально • Просто</span>
       <h1 class="h1">Оживим вашу фотографию в трогательное видео</h1>
-      <p class="lead">Одно фото — за <b>85 ₽</b>. Идеально для подарка и семейной памяти.</p>
+      <p class="lead">Одно фото — <b>85 ₽</b>. Идеально для подарка и семейной памяти.</p>
       <div style="display:flex;gap:10px;flex-wrap:wrap" class="aos">
         <a class="btn" href="https://t.me/podarokphoto_bot?start=web" target="_blank" rel="noopener">Оживить фото</a>
         <a class="btn btn-ghost" href="https://t.me/podarokphoto_bot?start=order" target="_blank" rel="noopener">Видео под ключ</a>
@@ -160,7 +128,9 @@
       <p class="hint" style="margin-top:14px">Загрузите фото как в альбоме: голова сверху, земля снизу.</p>
     </div>
     <figure class="media aos" aria-label="Видео-превью результата">
-      <video src="https://nikitasolonukha.github.io/lending/%D0%B2%D0%B8%D0%B4%D0%B5%D0%BE/Video%20(2).mp4" autoplay muted playsinline loop preload="metadata"></video>
+      <video autoplay muted playsinline loop preload="metadata">
+        <source src="https://nikitasolonukha.github.io/lending/%D0%B2%D0%B8%D0%B4%D0%B5%D0%BE/Video%20(2).mp4" type="video/mp4">
+      </video>
       <div class="glow" aria-hidden="true"></div>
     </figure>
   </section>
@@ -168,61 +138,39 @@
   <section class="container sec">
     <h2 class="title">Как это работает</h2>
     <div class="grid">
-      <div class="card step aos">
-        <div class="num" aria-hidden="true">1</div>
-        <div>
-          <h3 style="margin:0 0 6px">Откройте бота</h3>
-          <p class="muted">Перейдите в <b>@podarokphoto_bot</b> и нажмите «Оживить фото».</p>
-        </div>
-      </div>
-      <div class="card step aos">
-        <div class="num" aria-hidden="true">2</div>
-        <div>
-          <h3 style="margin:0 0 6px">Отправьте фотографию</h3>
-          <p class="muted">Лучше чёткий портрет. Ориентация «как в альбоме».</p>
-        </div>
-      </div>
-      <div class="card step aos">
-        <div class="num" aria-hidden="true">3</div>
-        <div>
-          <h3 style="margin:0 0 6px">Опишите пожелания</h3>
-        <p class="muted">Моргание, лёгкая улыбка, аккуратный поворот.</p>
-        </div>
-      </div>
-      <div class="card step aos">
-        <div class="num" aria-hidden="true">4</div>
-        <div>
-          <h3 style="margin:0 0 6px">Получите видео</h3>
-          <p class="muted">Готовый ролик — прямо в чате.</p>
-        </div>
-      </div>
+      <div class="card step aos"><div class="num" aria-hidden="true">1</div><div><h3 style="margin:0 0 6px">Откройте бота</h3><p class="muted">Перейдите в <b>@podarokphoto_bot</b> и нажмите «Оживить фото».</p></div></div>
+      <div class="card step aos"><div class="num" aria-hidden="true">2</div><div><h3 style="margin:0 0 6px">Отправьте фотографию</h3><p class="muted">Чёткий портрет. Ориентация «как в альбоме».</p></div></div>
+      <div class="card step aos"><div class="num" aria-hidden="true">3</div><div><h3 style="margin:0 0 6px">Опишите пожелания</h3><p class="muted">Моргание, лёгкая улыбка, аккуратный поворот.</p></div></div>
+      <div class="card step aos"><div class="num" aria-hidden="true">4</div><div><h3 style="margin:0 0 6px">Получите видео</h3><p class="muted">Готовый ролик — в чате.</p></div></div>
     </div>
   </section>
 
   <section class="container sec emo">
     <figure class="image aos" aria-label="Живое видео">
-      <video src="Video (4).mp4" autoplay muted playsinline loop preload="metadata"></video>
+      <video autoplay muted playsinline loop preload="metadata">
+        <source src="https://nikitasolonukha.github.io/lending/%D0%B2%D0%B8%D0%B4%D0%B5%D0%BE/Video%20(4).mp4" type="video/mp4">
+      </video>
     </figure>
     <div class="aos">
       <h2 class="title">Память, которая снова дышит</h2>
       <p class="muted" style="font-size:18px">Оживлённое фото — бережная реставрация и эмоции, к которым хочется возвращаться.</p>
-      <p class="muted">Идеально для родных и близких — тёплый подарок с историей.</p>
+      <p class="muted">Тёплый подарок с историей.</p>
     </div>
   </section>
 
   <section class="container sec">
     <h2 class="title">Примеры «До/После»</h2>
     <div class="slider aos" id="beforeAfter" aria-label="Слайдер до и после">
-      <img class="base" src="https://images.unsplash.com/photo-1501630834273-4b5604d2ee31?q=80&auto=format&fit=crop&w=1600&h=900" alt="Старое фото">
+      <img class="base" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&auto=format&fit=crop&w=1600&h=900" alt="Старое винтажное фото">
       <div class="after">
-        <video src="Video (4).mp4" autoplay muted playsinline loop preload="metadata"></video>
+        <video autoplay muted playsinline loop preload="metadata">
+          <source src="https://nikitasolonukha.github.io/lending/%D0%B2%D0%B8%D0%B4%D0%B5%D0%BE/Video%20(4).mp4" type="video/mp4">
+        </video>
       </div>
-      <div class="handle" aria-hidden="true">
-        <div class="bar"></div>
-        <div class="knob"></div>
-      </div>
+      <div class="handle" aria-hidden="true"><div class="bar"></div><div class="knob"></div></div>
       <input class="visually-hidden" type="range" min="0" max="100" value="50" aria-label="Ползунок сравнения">
     </div>
+    <p class="muted" style="margin-top:8px">До — фото. После — живое видео.</p>
   </section>
 
   <section class="container sec">
@@ -231,11 +179,7 @@
       <div class="card price aos">
         <h3 style="margin:0">Оживить одно фото</h3>
         <div class="rub">85 ₽</div>
-        <div class="bullets">
-          <div>Короткое трогательное видео</div>
-          <div>Лёгкая реставрация и анимация</div>
-          <div>Конфиденциальность</div>
-        </div>
+        <div class="bullets"><div>Короткое трогательное видео</div><div>Лёгкая реставрация и анимация</div><div>Конфиденциальность</div></div>
         <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:6px">
           <a class="btn" href="https://t.me/podarokphoto_bot?start=web" target="_blank" rel="noopener">Оживить фото</a>
           <span class="pill" aria-hidden="true">Готово за минуты</span>
@@ -244,11 +188,7 @@
       <div class="card price aos">
         <h3 style="margin:0">Видео под ключ</h3>
         <div class="rub">Индивидуально</div>
-        <div class="bullets">
-          <div>Сюжет, музыка, монтаж</div>
-          <div>Несколько фото и стили</div>
-          <div>Персональный продюсер</div>
-        </div>
+        <div class="bullets"><div>Сюжет, музыка, монтаж</div><div>Несколько фото и стили</div><div>Персональный продюсер</div></div>
         <a class="btn btn-ghost" href="https://t.me/podarokphoto_bot?start=order" target="_blank" rel="noopener">Обсудить задачу</a>
       </div>
     </div>
@@ -258,18 +198,9 @@
     <h2 class="title">Отзывы</h2>
     <div class="reviews card aos" aria-roledescription="карусель отзывов">
       <div class="track" id="reviewsTrack">
-        <div class="card review">
-          <blockquote>«Мама расплакалась от счастья. Словно увидела папу снова. Спасибо за деликатность!»</blockquote>
-          <footer>— Анастасия, Санкт-Петербург</footer>
-        </div>
-        <div class="card review">
-          <blockquote>«Подарили бабушке — весь стол улыбался. Цена символическая, эмоции бесценны.»</blockquote>
-          <footer>— Иван, Казань</footer>
-        </div>
-        <div class="card review">
-          <blockquote>«Отправила фото — через пару минут пришло видео. Аккуратно и бережно.»</blockquote>
-          <footer>— Елена, Екатеринбург</footer>
-        </div>
+        <div class="card review"><blockquote>«Мама расплакалась от счастья. Словно увидела папу снова.»</blockquote><footer>— Анастасия</footer></div>
+        <div class="card review"><blockquote>«Подарили бабушке — весь стол улыбался. Цена символическая, эмоции бесценны.»</blockquote><footer>— Иван</footer></div>
+        <div class="card review"><blockquote>«Отправила фото — через пару минут пришло видео. Аккуратно и бережно.»</blockquote><footer>— Елена</footer></div>
       </div>
     </div>
   </section>
@@ -277,8 +208,8 @@
   <section class="container sec center">
     <h2 class="title">Готовы вернуть тёплые эмоции?</h2>
     <div class="cta-final aos">
-      <a class="btn" href="https://t.me/podarokphoto_bot?start=web" target="_blank" rel="noopener" aria-label="Перейти к боту для оживления фото">Оживить фото — 85 ₽</a>
-      <a class="btn btn-ghost" href="https://t.me/podarokphoto_bot?start=order" target="_blank" rel="noopener" aria-label="Заказать индивидуальное видео">Видео под ключ</a>
+      <a class="btn" href="https://t.me/podarokphoto_bot?start=web" target="_blank" rel="noopener">Оживить фото — 85 ₽</a>
+      <a class="btn btn-ghost" href="https://t.me/podarokphoto_bot?start=order" target="_blank" rel="noopener">Видео под ключ</a>
     </div>
   </section>
 </main>
@@ -289,93 +220,36 @@
   <a class="btn btn-ghost" href="https://t.me/podarokphoto_bot?start=order" target="_blank" rel="noopener">Под ключ</a>
 </div>
 
-<footer>
-  © Живые Фото · @podarokphoto_bot
-</footer>
+<footer>© Живые Фото · @podarokphoto_bot</footer>
 
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Какие фотографии подходят лучше всего?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Четкие портреты, где лицо смотрит вперед. Загружайте фото «как в альбоме»: голова сверху, земля снизу."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Сколько стоит оживление?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "85 ₽ — оживление одного фото и короткое видео с деликатной анимацией."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Можно ли добавить музыку?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "В «Видео под ключ» добавим музыку и сделаем монтаж."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Как храните данные?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Материалы используются только для обработки и не публикуются. По запросу удалим после завершения."
-      }
-    }
-  ]
-}
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Какие фотографии подходят лучше всего?","acceptedAnswer":{"@type":"Answer","text":"Чёткие портреты, лицо вперёд. Загружайте фото «как в альбоме»: голова сверху, земля снизу."}},{"@type":"Question","name":"Сколько стоит оживление?","acceptedAnswer":{"@type":"Answer","text":"85 ₽ — оживление одного фото и короткое видео с деликатной анимацией."}},{"@type":"Question","name":"Можно ли добавить музыку?","acceptedAnswer":{"@type":"Answer","text":"В «Видео под ключ» подберём музыку и сделаем монтаж."}},{"@type":"Question","name":"Как храните данные?","acceptedAnswer":{"@type":"Answer","text":"Материалы используются только для обработки и не публикуются. По запросу удалим после завершения."}}]}
 </script>
 
 <script>
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
-    })
-  },{threshold:.16});
-  document.querySelectorAll('.aos, .card').forEach(el=>io.observe(el));
+  const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.16});
+  document.querySelectorAll('.aos,.card').forEach(el=>io.observe(el));
 
-  const slider = document.getElementById('beforeAfter');
-  const afterWrap = slider.querySelector('.after');
-  const bar = slider.querySelector('.bar');
-  const knob = slider.querySelector('.knob');
-  const input = slider.querySelector('input[type="range"]');
-  let dragging = false;
-
-  function setSplit(pct){
-    pct = Math.max(0, Math.min(100, pct));
-    afterWrap.style.width = pct + '%';
-    bar.style.left = pct + '%';
-    knob.style.left = pct + '%';
-    input.value = pct;
-  }
+  const slider=document.getElementById('beforeAfter');
+  const after=slider.querySelector('.after');
+  const bar=slider.querySelector('.bar');
+  const knob=slider.querySelector('.knob');
+  const input=slider.querySelector('input[type="range"]');
+  let dragging=false;
+  function setSplit(p){p=Math.max(0,Math.min(100,p));after.style.clipPath=`inset(0 ${100-p}% 0 0)`;bar.style.left=p+'%';knob.style.left=p+'%';input.value=p}
   setSplit(50);
+  const pct=x=>((x-slider.getBoundingClientRect().left)/slider.clientWidth)*100;
+  slider.addEventListener('pointerdown',e=>{dragging=true;slider.setPointerCapture(e.pointerId);setSplit(pct(e.clientX))});
+  slider.addEventListener('pointermove',e=>{if(dragging)setSplit(pct(e.clientX))});
+  window.addEventListener('pointerup',()=>dragging=false);
+  input.addEventListener('input',e=>setSplit(e.target.value));
 
-  const rectPct = (clientX)=>((clientX - slider.getBoundingClientRect().left)/slider.clientWidth)*100;
-
-  slider.addEventListener('pointerdown', e=>{ dragging = true; slider.setPointerCapture(e.pointerId); setSplit(rectPct(e.clientX)); });
-  slider.addEventListener('pointermove', e=>{ if(dragging) setSplit(rectPct(e.clientX)); });
-  window.addEventListener('pointerup', ()=> dragging=false);
-  input.addEventListener('input', e=> setSplit(e.target.value));
-
-  const track = document.getElementById('reviewsTrack');
-  let index = 0;
-  const cards = track.children.length;
-  function tick(){
-    index = (index+1)%cards;
-    const width = track.children[0].getBoundingClientRect().width + 16;
-    track.style.transform = `translateX(${-index*width}px)`;
-  }
-  let reviewTimer = setInterval(tick, 3500);
-  track.addEventListener('mouseenter', ()=> clearInterval(reviewTimer));
-  track.addEventListener('mouseleave', ()=> reviewTimer = setInterval(tick, 3500));
+  const track=document.getElementById('reviewsTrack');
+  let i=0;const n=track.children.length;
+  function tick(){i=(i+1)%n;const w=track.children[0].getBoundingClientRect().width+16;track.style.transform=`translateX(${-i*w}px)`}
+  let t=setInterval(tick,3500);
+  track.addEventListener('mouseenter',()=>clearInterval(t));
+  track.addEventListener('mouseleave',()=>t=setInterval(tick,3500));
 </script>
 </body>
 </html>
