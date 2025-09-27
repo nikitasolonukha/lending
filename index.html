@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ру">
 <head>
   <meta charset="utf-8">
   <title>Оживление и реставрация фото — Telegram-бот @podarokphoto_bot</title>
@@ -36,7 +36,15 @@
     img,video{max-width:100%;display:block}
     figure{margin:0}
     a{color:inherit}
-    .container{width:min(var(--max),100%);margin-inline:auto;padding-inline:clamp(16px,4vw,28px)}
+    /* ЕДИНЫЙ ЦЕНТРИРОВАННЫЙ КОНТЕЙНЕР ДЛЯ ВСЕГО */
+    .container{
+      max-width:var(--max);
+      width:100%;
+      margin-left:auto;
+      margin-right:auto;
+      padding-left:clamp(16px,4vw,28px);
+      padding-right:clamp(16px,4vw,28px);
+    }
     header{
       position:sticky;top:0;z-index:40;
       background:linear-gradient(180deg,rgba(15,10,26,.92),rgba(15,10,26,.5) 65%,transparent);
@@ -59,19 +67,23 @@
     .hint{font-size:13px;color:#d8ccff;padding:10px 12px;border:1px dashed #7b5ac9;border-radius:10px;background:linear-gradient(180deg,#261a46,#1a1331)}
     .glass{border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--stroke);background:#0b0713;box-shadow:0 10px 30px rgba(0,0,0,.35)}
     .card{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.03));border:1px solid var(--stroke);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
-    /* HERO */
+
+    /* HERO — ровная симметрия */
     .hero{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2.4vw,28px);align-items:center}
-    .hero .media video{aspect-ratio:16/9;object-fit:cover}
     .h1{font-size:clamp(30px,3.9vw,64px);line-height:1.04;font-weight:800;margin:0}
+    .hero .media video{aspect-ratio:16/9;object-fit:cover}
+
     /* HOW GRID */
     .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
     .step{display:flex;gap:12px}
     .num{flex:0 0 36px;height:36px;border-radius:12px;display:grid;place-items:center;font-weight:800;background:linear-gradient(135deg,#3d2a6d,#23183f);border:1px solid var(--stroke);color:#d9ccff}
-    /* EMO: вертикальное видео */
+
+    /* EMO: вертикальное видео по центру, без обрезки */
     .emo{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:center}
     .tall{display:grid;place-items:center;background:linear-gradient(180deg,#0b0713,#130a22)}
-    .tall .frame{width:min(100%,540px);aspect-ratio:9/16;border-radius:18px;border:1px solid var(--stroke);box-shadow:inset 0 0 0 1px rgba(255,255,255,.03), 0 8px 22px rgba(0,0,0,.45);background:#000;overflow:hidden}
+    .tall .frame{width:min(100%,540px);aspect-ratio:9/16;border-radius:18px;border:1px solid var(--stroke);box-shadow:inset 0 0 0 1px rgba(255,255,255,.03), 0 8px 22px rgba(0,0,0,.45);background:#000;overflow:hidden;margin-inline:auto}
     .tall video{width:100%;height:100%;object-fit:contain;background:#000}
+
     /* BEFORE/AFTER */
     .slider{position:relative;border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--stroke);background:#0b0713}
     .slider .base{width:100%;display:block;aspect-ratio:16/9;object-fit:cover}
@@ -80,21 +92,25 @@
     .slider .handle{position:absolute;inset:0;pointer-events:none}
     .slider .bar{position:absolute;top:0;bottom:0;width:2px;left:50%;transform:translateX(-50%);background:linear-gradient(180deg,var(--accent),var(--accent2))}
     .slider .knob{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));border:3px solid #160e29;box-shadow:0 10px 24px rgba(177,92,255,.35)}
+
     /* PRICING */
     .prices{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
     .rub{font-size:clamp(26px,3vw,38px);font-weight:800;color:#ffe6ff}
     .bullets{display:grid;gap:8px;color:var(--muted);font-size:14px}
+
     /* REVIEWS */
     .reviews{position:relative;overflow:hidden}
     .track{display:flex;gap:16px;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
     .review{min-width:calc(50% - 8px)}
     .review blockquote{margin:0;color:#f3ecff}
     .review footer{margin-top:10px;color:#cfc4ea;font-size:14px}
+
     /* CTA */
     .cta-final{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
     .sticky-cta{position:fixed;left:0;right:0;bottom:0;z-index:50;padding:10px 14px;display:flex;align-items:center;gap:10px;justify-content:center;backdrop-filter:saturate(150%) blur(8px);background:linear-gradient(180deg,rgba(18,11,33,.3),rgba(18,11,33,.7));border-top:1px solid var(--stroke);height:var(--sticky-h)}
     .sticky-cta .btn{padding:12px 16px}
     .pricechip{font-weight:800;color:#120a1f;background:linear-gradient(135deg,#9cf6d3,#7ef0b6);border-radius:999px;padding:8px 12px}
+
     /* AOS */
     .aos{opacity:0;transform:translateY(16px) scale(.985);transition:transform .6s cubic-bezier(.2,.8,.2,1),opacity .6s ease}
     .aos.in{opacity:1;transform:none}
@@ -106,10 +122,9 @@
       .review{min-width:100%}
       .hero,.emo{grid-template-columns:1fr}
     }
-    /* PHONE: всё ровно и крупно */
+    /* PHONE */
     @media (max-width:640px){
       :root{--gutter:22px}
-      .container{padding-inline:clamp(16px,5vw,22px)}
       .sec + .sec{padding-top:calc(var(--gutter)*2)}
       .btn{width:100%;text-align:center}
       .nav-cta{gap:8px}
@@ -122,7 +137,7 @@
       .tall .frame{width:100%;border-radius:18px}
     }
     @media (max-width:380px){
-      .container{padding-inline:14px}
+      .container{padding-left:14px;padding-right:14px}
       .h1{font-size:28px}
     }
     @media (prefers-reduced-motion: reduce){
@@ -181,7 +196,7 @@
     </div>
   </section>
 
-  <!-- Память / реакция: вертикальное видео без обрезания -->
+  <!-- Память / реакция -->
   <section class="container sec">
     <div class="emo">
       <figure class="glass tall aos" aria-label="Вертикальное видео реакции">
@@ -311,7 +326,7 @@
     track.addEventListener('mouseleave',()=>t=setInterval(tick,3500));
   }
 
-  (function(){ // неразрывные пробелы для одно-буквенных
+  (function(){ // неразрывные предлоги
     const nbsp=s=>s.replace(/(^|\s)([вксуаои])\s(?=\S)/gi,(_p,sp,one)=>`${sp}${one}\u00A0`);
     document.querySelectorAll('#heroTitle,.title,.lead,.muted').forEach(el=>{el.textContent=nbsp(el.textContent)});
   })();
