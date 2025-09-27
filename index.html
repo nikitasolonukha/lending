@@ -1,320 +1,438 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Оживление фото — Telegram‑бот | Живые Фото</title>
-  <meta name="description" content="Оживляем и реставрируем старые фотографии в трогательные видео. Быстро, конфиденциально и просто. Попробуйте бесплатно в Telegram!" />
+  <meta charset="utf-8">
+  <title>Оживление и реставрация фото — Telegram-бот @podarokphoto_bot</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Оживим старую фотографию в трогательное видео за 85 ₽. Быстро, конфиденциально и просто. Запустите бота @podarokphoto_bot и верните эмоции и память.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Оживление и реставрация фото — бот в Telegram">
+  <meta property="og:description" content="Оживите фото за 85 ₽. Быстро, конфиденциально и просто. @podarokphoto_bot">
+  <meta property="og:url" content="https://podarokphoto.example">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1511765224389-37f0e77cf0eb?q=80&auto=format&fit=crop&w=1200&h=630">
+  <meta name="theme-color" content="#1b1226">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
-  <link rel="preconnect" href="https://cdn.coverr.co" crossorigin>
-  <meta property="og:title" content="Оживление фото — Telegram‑бот" />
-  <meta property="og:description" content="Мы оживляем старые фотографии и превращаем их в видео. Верните важные моменты к жизни." />
-  <meta property="og:type" content="website" />
-  <meta property="og:locale" content="ru_RU" />
-  <meta name="twitter:card" content="summary_large_image" />
   <style>
-    :root{--bg:#0e0e12;--text:#F5F7FB;--muted:#B7BDD1;--brand:#8B5CF6;--brand-2:#EC4899;--glass:rgba(255,255,255,.06);--stroke:rgba(255,255,255,.14);--radius:18px;--shadow:0 10px 30px rgba(0,0,0,.35), inset 0 0 0 1px var(--stroke);--focus:0 0 0 3px rgba(139,92,246,.45),0 0 0 6px rgba(236,72,153,.35)}
+    :root{
+      --bg1:#0f0a1a;--bg2:#1b1230;--glass:rgba(255,255,255,.06);--stroke:rgba(255,255,255,.12);
+      --text:#e9e5f5;--muted:#b5a9d3;--accent:#b15cff;--accent2:#ff63c3;--ok:#7ef0b6;
+      --shadow:0 10px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.04);
+      --radius:16px;--radius-lg:22px;--max:1120px
+    }
     *{box-sizing:border-box}
     html,body{height:100%}
-    body{margin:0;font-family:"Manrope",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--text);background:radial-gradient(1200px 1200px at 80% -10%, rgba(139,92,246,.25), transparent 60%),radial-gradient(800px 800px at -10% 20%, rgba(236,72,153,.22), transparent 60%),linear-gradient(180deg,#0b0b10,#12121a 45%,#0b0b10);overflow-x:hidden;scroll-behavior:smooth}
-    a{color:inherit;text-decoration:none}
-    a:focus-visible,button:focus-visible{outline:none;box-shadow:var(--focus)}
-    .container{width:min(1120px,92vw);margin:0 auto}
-    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-    .skip{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
-    .skip:focus{left:12px;top:12px;width:auto;height:auto;z-index:1000;background:#111;color:#fff;padding:8px 12px;border-radius:10px}
-    header{position:fixed;top:0;left:0;right:0;z-index:30;backdrop-filter:saturate(140%) blur(14px);background:linear-gradient(180deg,rgba(14,14,18,.9),rgba(14,14,18,.35));border-bottom:1px solid var(--stroke)}
-    .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
-    .brand{display:flex;gap:12px;align-items:center;font-weight:800;letter-spacing:.2px}
-    .logo{width:38px;height:38px;border-radius:50%;position:relative;box-shadow:var(--shadow);background:linear-gradient(135deg,var(--brand),var(--brand-2))}
-    .logo::after{content:"";position:absolute;inset:-1px;border-radius:inherit;mask:radial-gradient(circle at 30% 30%, #fff 30%, transparent 31%);background:rgba(255,255,255,.6);filter:blur(6px)}
-    .header-cta{display:flex;gap:10px}
-    .btn{--h:52px;height:var(--h);padding:0 20px;border-radius:calc(var(--radius) - 4px);display:inline-flex;align-items:center;gap:10px;border:1px solid var(--stroke);background:var(--glass);color:var(--text);cursor:pointer;font-weight:700;letter-spacing:.2px;box-shadow:var(--shadow);transition:transform .2s ease,filter .2s ease,background .25s}
-    .btn:hover{transform:translateY(-1px)}
-    .btn:active{transform:translateY(0)}
-    .btn.primary{background:linear-gradient(135deg,var(--brand),var(--brand-2));border-color:transparent}
-    .btn.glow{position:relative;overflow:hidden}
-    .btn.glow::before{content:"";position:absolute;inset:-200% -50%;background:conic-gradient(from 0deg,transparent 0 40%,rgba(255,255,255,.35) 40% 60%,transparent 60% 100%);animation:spin 6s linear infinite;opacity:.65}
-    .btn.glow span{position:relative;z-index:1}
-    @keyframes spin{to{transform:rotate(1turn)}}
-    .hero{padding:140px 0 96px;position:relative;overflow:hidden}
-    .hero-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center}
-    .headline{font-size:clamp(34px,5vw,64px);line-height:1.05;font-weight:800;margin:0 0 14px}
-    .sub{font-size:clamp(16px,2.2vw,20px);color:var(--muted);max-width:720px}
-    .hero-card{border-radius:24px;padding:14px;background:var(--glass);border:1px solid var(--stroke);box-shadow:var(--shadow)}
-    .preview{position:relative;aspect-ratio:16/10;border-radius:18px;overflow:hidden;background:linear-gradient(135deg,#20202b,#15151e)}
-    .preview .hint{position:absolute;left:12px;bottom:12px;background:rgba(0,0,0,.5);padding:8px 12px;border-radius:12px;font-size:13px;color:#e8eaf5;border:1px solid rgba(255,255,255,.18)}
-    .frame{position:absolute;inset:-1px;border-radius:19px;pointer-events:none}
-    .frame::before{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;background:linear-gradient(135deg,rgba(139,92,246,.9),rgba(236,72,153,.9)) border-box;-webkit-mask:linear-gradient(#000 0 0) padding-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:.55;filter:blur(.3px)}
-    .frame::after{content:"";position:absolute;inset:-2px;border-radius:inherit;background:conic-gradient(from 0deg,transparent,rgba(255,255,255,.35),transparent);filter:blur(18px);animation:spin 8s linear infinite;opacity:.6}
-    main section{padding:86px 0}
-    .section-title{font-size:36px;font-weight:800;margin:0 0 10px}
-    .section-note{color:var(--muted);margin-bottom:24px}
-    .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-    .step{background:var(--glass);border:1px solid var(--stroke);border-radius:16px;padding:18px;box-shadow:var(--shadow);position:relative;overflow:hidden}
-    .num{width:34px;height:34px;display:grid;place-items:center;border-radius:10px;font-weight:800;color:#12121a;background:linear-gradient(135deg,#c4b5fd,#f9a8d4);margin-bottom:10px}
-    .step p{margin:6px 0 0;color:#dbe0ee}
-    .tip{margin-top:16px;padding:14px 16px;border:1px dashed rgba(255,255,255,.25);border-radius:14px;background:rgba(255,255,255,.03);color:#e8eaf5}
-    .emo{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:center}
-    .emo .card{background:var(--glass);border:1px solid var(--stroke);border-radius:18px;padding:22px;box-shadow:var(--shadow)}
-    .emo h3{margin:0 0 10px;font-size:28px}
-    .emo p{color:var(--muted)}
-    .ba{display:grid;grid-template-columns:1.1fr .9fr;gap:20px;align-items:center}
-    .slider{position:relative;border-radius:18px;overflow:hidden;border:1px solid var(--stroke);box-shadow:var(--shadow);aspect-ratio:16/10}
-    .slider picture{position:absolute;inset:0;display:block}
-    .slider img,.slider video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-    .slider .after{clip-path:inset(0 0 0 50%)}
-    .grip{position:absolute;top:0;bottom:0;left:50%;width:2px;background:rgba(255,255,255,.7);z-index:2}
-    .dot{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--brand),var(--brand-2));display:grid;place-items:center;color:#fff;font-weight:800;box-shadow:0 10px 25px rgba(0,0,0,.35);z-index:2}
-    .range{position:absolute;inset:0;width:100%;opacity:0}
-    .trust{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-    .trust .item{background:var(--glass);border:1px solid var(--stroke);border-radius:16px;padding:18px;box-shadow:var(--shadow)}
-    .trust .item h4{margin:0 0 8px}
-    .trust .item p{margin:0;color:#cfd5e8}
-    .pricing{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
-    .plan{background:var(--glass);border:1px solid var(--stroke);border-radius:16px;padding:18px;box-shadow:var(--shadow)}
-    .plan h4{margin:0 0 6px}
-    .plan ul{margin:10px 0 0;padding-left:18px;line-height:1.7;color:#dbe0ee}
-    .carousel{position:relative;overflow:hidden;border-radius:18px;border:1px solid var(--stroke);background:var(--glass)}
-    .slides{display:flex;transition:transform .6s ease}
-    .slide{min-width:100%;padding:26px}
-    .quote{font-size:20px}
-    .author{margin-top:12px;color:var(--muted)}
-    .dots{display:flex;gap:8px;position:absolute;left:50%;transform:translateX(-50%);bottom:12px}
-    .dots button{width:8px;height:8px;border-radius:50%;background:#fff3;border:0}
-    .dots button.active{background:#fff}
-    .faq{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-    details{background:var(--glass);border:1px solid var(--stroke);border-radius:14px;padding:16px;box-shadow:var(--shadow)}
-    summary{cursor:pointer;font-weight:700}
-    details p{color:var(--muted)}
-    .cta{display:grid;grid-template-columns:1fr .8fr;gap:18px;align-items:center}
-    .cta .panel{background:var(--glass);border:1px solid var(--stroke);border-radius:18px;padding:24px;box-shadow:var(--shadow)}
-    .sticky-cta{position:fixed;left:0;right:0;bottom:8px;z-index:40;display:none;justify-content:center}
-    .sticky-cta .inner{display:flex;gap:8px;background:rgba(17,17,24,.9);border:1px solid var(--stroke);padding:8px;border-radius:14px;box-shadow:0 12px 30px rgba(0,0,0,.45);backdrop-filter:blur(8px)}
-    .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
-    .reveal.in-view{opacity:1;transform:none}
-    @media (prefers-reduced-motion:reduce){.btn.glow::before,.frame::after{animation:none}.reveal{transition:none}}
-    @media (max-width:980px){.hero-grid,.emo,.ba,.cta{grid-template-columns:1fr}.steps{grid-template-columns:1fr 1fr}.faq{grid-template-columns:1fr}.trust{grid-template-columns:1fr}.sticky-cta{display:flex}}
+    body{
+      margin:0;font-family:Manrope,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      color:var(--text);background:
+        radial-gradient(1200px 700px at 10% -10%, #341d55 0%, transparent 60%),
+        radial-gradient(1000px 600px at 110% 10%, #2a1558 0%, transparent 55%),
+        linear-gradient(180deg,var(--bg1),var(--bg2));
+      overflow-x:hidden
+    }
+    a{color:inherit}
+    .container{max-width:var(--max);margin-inline:auto;padding:24px}
+    header{position:sticky;top:0;z-index:40;background:linear-gradient(180deg,rgba(15,10,26,.9),rgba(15,10,26,.4) 60%,transparent);backdrop-filter:saturate(140%) blur(8px)}
+    nav{display:flex;align-items:center;gap:16px;justify-content:space-between}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.2px}
+    .logo{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 10px 25px rgba(177,92,255,.35)}
+    .nav-cta{display:flex;gap:10px;flex-wrap:wrap}
+    .btn{
+      appearance:none;border:1px solid transparent;border-radius:999px;padding:12px 18px;font-weight:700;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));color:#120a1f;
+      text-decoration:none;box-shadow:0 8px 24px rgba(255,99,195,.25), inset 0 1px 0 rgba(255,255,255,.35);
+      transition:transform .15s ease, box-shadow .2s ease, filter .2s ease
+    }
+    .btn:hover{transform:translateY(-1px);box-shadow:0 14px 28px rgba(255,99,195,.32)}
+    .btn:focus-visible{outline:3px solid #fff2;outline-offset:3px}
+    .btn-ghost{
+      background:transparent;color:var(--text);border-color:var(--stroke);
+      box-shadow:var(--shadow)
+    }
+    .pill{font-size:12px;font-weight:800;letter-spacing:.3px;text-transform:uppercase;background:linear-gradient(90deg,#2b1b52,#1a1430);border:1px solid var(--stroke);padding:6px 10px;border-radius:999px;color:var(--muted);display:inline-flex;gap:8px;align-items:center}
+    .hero{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:center;padding-top:28px}
+    .h1{font-size: clamp(28px, 3.4vw, 56px);line-height:1.04;margin:6px 0 10px;font-weight:800}
+    .lead{font-size: clamp(15px,1.6vw,20px);color:var(--muted);margin:0 0 22px}
+    .hint{font-size:13px;color:#d7c9ff;padding:10px 12px;border:1px dashed #7b5ac9;border-radius:10px;background:linear-gradient(180deg,#261a46,#1a1331)}
+    .media{
+      position:relative;border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--stroke);
+      background:#0b0713;box-shadow:0 10px 30px rgba(0,0,0,.35)
+    }
+    .media video{width:100%;height:100%;display:block;object-fit:cover;aspect-ratio:16/10}
+    .glow{
+      position:absolute;inset:auto auto 12px 12px;background:linear-gradient(135deg,var(--accent),var(--accent2));
+      filter:blur(28px);opacity:.35;width:160px;height:160px;border-radius:50%;pointer-events:none
+    }
+    .sec{padding:64px 0}
+    .title{font-size: clamp(22px,2.6vw,36px);margin:0 0 18px}
+    .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+    .card{
+      background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.03));
+      border:1px solid var(--stroke);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)
+    }
+    .step{display:flex;gap:12px}
+    .num{flex:0 0 36px;height:36px;border-radius:12px;display:grid;place-items:center;font-weight:800;background:linear-gradient(135deg,#3d2a6d,#23183f);border:1px solid var(--stroke);color:#d9ccff}
+    .emo{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;align-items:center}
+    .emo .image{border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--stroke)}
+    .emo .image img{width:100%;height:100%;object-fit:cover;display:block;aspect-ratio:4/3;transform:scale(1.02)}
+    .prices{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+    .price{display:flex;flex-direction:column;gap:14px}
+    .rub{font-size: clamp(26px,3vw,38px);font-weight:800;color:#ffe1ff}
+    .bullets{display:grid;gap:8px;color:var(--muted);font-size:14px}
+    .center{text-align:center}
+    .slider{
+      position:relative;border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--stroke);background:#0b0713
+    }
+    .slider .img{width:100%;height:auto;display:block;object-fit:cover;aspect-ratio:16/10}
+    .slider .after{
+      position:absolute;inset:0;clip-path:inset(0 50% 0 0);transition:clip-path .05s linear
+    }
+    .slider .handle{
+      position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none
+    }
+    .slider .bar{position:absolute;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--accent),var(--accent2));left:50%;transform:translateX(-50%)}
+    .slider .knob{
+      position:absolute;left:50%;transform:translateX(-50%);width:56px;height:56px;border-radius:50%;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));border:3px solid #160e29;box-shadow:0 10px 24px rgba(177,92,255,.35)
+    }
+    .reviews{position:relative;overflow:hidden}
+    .track{display:flex;gap:16px;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+    .review{min-width:calc(50% - 8px)}
+    .review blockquote{margin:0;color:#f3ecff}
+    .review footer{margin-top:10px;color:var(--muted);font-size:14px}
+    details{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.03));border:1px solid var(--stroke);border-radius:12px;padding:16px}
+    details+details{margin-top:10px}
+    summary{cursor:pointer;font-weight:700;outline:none}
+    summary:focus-visible{outline:3px solid #fff2;border-radius:8px}
+    .cta-final{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+    .sticky-cta{
+      position:fixed;left:0;right:0;bottom:0;z-index:50;padding:10px 14px;display:flex;align-items:center;gap:10px;justify-content:center;
+      backdrop-filter:saturate(150%) blur(8px);background:linear-gradient(180deg,rgba(18,11,33,.3),rgba(18,11,33,.65));
+      border-top:1px solid var(--stroke)
+    }
+    .sticky-cta .btn{padding:12px 16px}
+    .pricechip{font-weight:800;color:#120a1f;background:linear-gradient(135deg,#9cf6d3,#7ef0b6);border-radius:999px;padding:8px 12px}
+    .muted{color:var(--muted)}
+    .aos{opacity:0;transform:translateY(16px) scale(.98);transition:transform .6s cubic-bezier(.2,.8,.2,1), opacity .6s ease}
+    .aos.in{opacity:1;transform:none}
+    footer{padding:60px 0 120px;color:#a896d7;text-align:center}
+    @media (max-width:1024px){
+      .hero{grid-template-columns:1fr;gap:18px}
+      .grid{grid-template-columns:repeat(2,1fr)}
+      .emo{grid-template-columns:1fr}
+      .review{min-width:100%}
+    }
+    @media (max-width:640px){
+      .grid{grid-template-columns:1fr}
+      .prices{grid-template-columns:1fr}
+      .h1{letter-spacing:-.2px}
+      .btn{width:100%;text-align:center}
+      .nav-cta .btn{padding:10px 14px}
+    }
+    .visually-hidden{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap}
   </style>
 </head>
 <body>
-  <a class="skip" href="#main">Перейти к содержимому</a>
-  <header aria-label="Верхняя навигация">
-    <div class="container nav">
+<header aria-label="Верхняя навигация">
+  <div class="container">
+    <nav>
       <div class="brand">
         <div class="logo" aria-hidden="true"></div>
-        <div>Живые Фото</div>
+        <span>Живые Фото</span>
       </div>
-      <nav class="header-cta" aria-label="Основные действия">
-        <a class="btn" href="#how">Как это работает</a>
-        <a class="btn primary glow" href="https://t.me/podarokphoto_bot?start=web" target="_blank" rel="noopener"><span>Оживить фото</span> 👉</a>
-      </nav>
-    </div>
-  </header>
-  <main id="main" tabindex="-1">
-    <section class="hero" aria-labelledby="hero-title">
-      <div class="container hero-grid">
-        <div>
-          <h1 id="hero-title" class="headline reveal">Оживляем и реставрируем ваши фотографии</h1>
-          <p class="sub reveal" style="transition-delay:.08s">✨ Старая фотография превращается в трогательное видео — мягко, бережно, с любовью. Вы снова увидите улыбку тех, кого нет рядом.</p>
-          <div class="reveal" style="display:flex; gap:10px; margin-top:18px; transition-delay:.15s">
-            <a class="btn primary glow" href="https://t.me/podarokphoto_bot?start=web" target="_blank" rel="noopener"><span>Оживить фото</span> ✨</a>
-            <a class="btn" href="#order">Заказать видео под ключ</a>
-          </div>
-          <p class="section-note" style="margin-top:14px">Загрузите фото как в альбоме: голова сверху, земля снизу.</p>
-        </div>
-        <div class="hero-card reveal" style="transition-delay:.08s">
-          <figure class="preview" aria-label="Превью оживления">
-  <picture>
-    <source type="image/avif" srcset="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1400&auto=format&fit=crop&fm=avif">
-    <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1400&auto=format&fit=crop" alt="Старое фото" decoding="async" style="filter:grayscale(1) contrast(1.1)" width="1400" height="875">
-  </picture>
-  <video autoplay muted loop playsinline preload="metadata" poster="data:image/gif;base64,R0lGODlhAQABAIAAAAUEBA==">
-    <source src="https://nikitasolonukha.github.io/lending/%D0%B2%D0%B8%D0%B4%D0%B5%D0%BE/Video%20(2).mp4" type="video/mp4">
-  </video>
-  <figcaption class="hint">Пример оживления • демо</figcaption>
-  <div class="frame" aria-hidden="true"></div>
-</figure>
-
-        </div>
+      <div class="nav-cta" role="navigation" aria-label="Основные действия">
+        <a class="btn" href="https://t.me/podarokphoto_bot?start=web" target="_blank" rel="noopener" aria-label="Оживить фото в Telegram">Оживить фото — 85 ₽</a>
+        <a class="btn btn-ghost" href="https://t.me/podarokphoto_bot?start=order" target="_blank" rel="noopener" aria-label="Заказать видео под ключ">Видео под ключ</a>
       </div>
-    </section>
-    <section id="how" aria-labelledby="how-title">
-      <div class="container">
-        <h2 id="how-title" class="section-title reveal">Как это работает</h2>
-        <p class="section-note reveal">Всего 4 шага — быстро, просто и безопасно.</p>
-        <div class="steps" role="list">
-          <div class="step reveal" role="listitem"><div class="num" aria-hidden="true">1</div><strong>Нажмите «Оживить фото»</strong><p>Откроется Telegram‑бот.</p></div>
-          <div class="step reveal" role="listitem"><div class="num" aria-hidden="true">2</div><strong>Отправьте фото боту</strong><p>Поддерживаем ч/б и цветные.</p></div>
-          <div class="step reveal" role="listitem"><div class="num" aria-hidden="true">3</div><strong>Опишите, что оживить</strong><p>Мимика, взгляд, лёгкое движение.</p></div>
-          <div class="step reveal" role="listitem"><div class="num" aria-hidden="true">4</div><strong>Получите готовое видео</strong><p>Скачайте или поделитесь.</p></div>
-        </div>
-        <div class="tip reveal">👉 «Загрузите фото не вверх ногами — представьте, что смотрите на него в альбоме. Голова сверху, земля снизу».</div>
-        <div style="margin-top:18px" class="reveal">
-          <a class="btn primary glow" href="https://t.me/podarokphoto_bot?start=web" target="_blank" rel="noopener"><span>Оживить фото</span> →</a>
-        </div>
-      </div>
-    </section>
-    <section aria-labelledby="emo-title">
-      <div class="container emo">
-        <div class="card reveal">
-          <h3 id="emo-title">Это больше, чем просто видео</h3>
-          <p>Мы возвращаем мгновения, которые казались утерянными. Старая фотография превращается в трогательное видео, где близкие будто снова рядом. Это подарок, который невозможно забыть.</p>
-          <div style="display:flex; gap:10px; margin-top:12px">
-            <a class="btn" href="#portfolio">Смотреть примеры</a>
-            <a class="btn primary" href="#order">Сделать видео под ключ</a>
-          </div>
-        </div>
-        <div class="card reveal" style="padding:0; overflow:hidden">
-          <figure class="preview" aria-hidden="true">
-            <picture>
-              <source type="image/avif" srcset="https://images.unsplash.com/photo-1509395176047-4a66953fd231?q=80&w=1400&auto=format&fit=crop&fm=avif">
-              <img src="https://images.unsplash.com/photo-1509395176047-4a66953fd231?q=80&w=1400&auto=format&fit=crop" alt="" loading="lazy" decoding="async" style="filter:grayscale(1) contrast(1.06)" width="1400" height="875">
-            </picture>
-            <video autoplay muted loop playsinline preload="none" poster="data:image/gif;base64,R0lGODlhAQABAIAAAAUEBA==" data-src="https://cdn.coverr.co/videos/coverr-elderly-woman-smiling-7207/1080p.mp4" style="mix-blend-screen; opacity:.9"></video>
-            <div class="frame" aria-hidden="true"></div>
-          </figure>
-        </div>
-      </div>
-    </section>
-    <section id="portfolio" aria-labelledby="portfolio-title">
-      <div class="container ba">
-        <div class="slider reveal" id="ba">
-          <picture>
-            <source type="image/avif" srcset="https://images.unsplash.com/photo-1511715284185-1c2f42a8e1ea?q=80&w=1400&auto=format&fit=crop&fm=avif">
-            <img class="before" src="https://images.unsplash.com/photo-1511715284185-1c2f42a8e1ea?q=80&w=1400&auto=format&fit=crop" alt="До" loading="lazy" decoding="async" width="1400" height="875">
-          </picture>
-          <picture>
-            <source type="image/avif" srcset="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=1400&auto=format&fit=crop&fm=avif">
-            <img class="after" src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=1400&auto=format&fit=crop" alt="После" loading="lazy" decoding="async" width="1400" height="875">
-          </picture>
-          <div class="grip" aria-hidden="true"></div>
-          <div class="dot" aria-hidden="true">⇆</div>
-          <input class="range" type="range" min="0" max="100" value="50" aria-label="Сравнить до/после">
-        </div>
-        <div class="reveal">
-          <h3 id="portfolio-title" style="margin:0 0 10px">Примеры работ</h3>
-          <p class="section-note">Перетяните ползунок, чтобы сравнить «До» и «После». Мы бережно восстанавливаем цвет, детали и добавляем живое движение.</p>
-          <div style="display:flex; gap:10px; margin-top:14px">
-            <a class="btn" href="#faq">Вопросы и ответы</a>
-            <a class="btn primary" href="https://t.me/podarokphoto_bot?start=web" target="_blank" rel="noopener">Попробовать сейчас</a>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section aria-labelledby="trust-title">
-      <div class="container">
-        <h2 id="trust-title" class="section-title reveal">Надёжно и бережно</h2>
-        <div class="trust" role="list">
-          <div class="item reveal" role="listitem"><h4>🔒 Конфиденциальность</h4><p>Ваши фото не публикуются и удаляются по политике хранения.</p></div>
-          <div class="item reveal" role="listitem"><h4>⚡ Быстрая обработка</h4><p>Оживление занимает минуты. Заказ «под ключ» — по брифу.</p></div>
-          <div class="item reveal" role="listitem"><h4>🎨 Индивидуальный подход</h4><p>Музыка, титры, формат — под вас.</p></div>
-        </div>
-      </div>
-    </section>
-    <section aria-labelledby="reviews-title">
-      <div class="container">
-        <h2 id="reviews-title" class="section-title reveal">Отзывы</h2>
-        <div class="carousel reveal" id="carousel" aria-roledescription="карусель отзывов">
-          <div class="slides">
-            <div class="slide" role="group" aria-label="Отзыв 1 из 3">
-              <blockquote class="quote">«Я не смогла сдержать слёз, когда увидела оживлённую улыбку бабушки. Спасибо за бережность.»</blockquote>
-              <div class="author">— Ольга, Санкт‑Петербург</div>
-            </div>
-            <div class="slide" role="group" aria-label="Отзыв 2 из 3">
-              <blockquote class="quote">«Попросил добавить лёгкое движение глаз и тёплую музыку — получилось невероятно трогательно. Лучший подарок маме.»</blockquote>
-              <div class="author">— Дмитрий, Москва</div>
-            </div>
-            <div class="slide" role="group" aria-label="Отзыв 3 из 3">
-              <blockquote class="quote">«Сервис простой и быстрый. Бот сделал черновик за пару минут, а команда довела ‘под ключ’.»</blockquote>
-              <div class="author">— Марина, Казань</div>
-            </div>
-          </div>
-          <div class="dots" aria-hidden="true"></div>
-        </div>
-      </div>
-    </section>
-    <section id="faq" aria-labelledby="faq-title">
-      <div class="container faq">
-        <h2 id="faq-title" class="sr-only">Частые вопросы</h2>
-        <details class="reveal"><summary>Какие фото подходят?</summary><p>Чем выше качество исходника — тем лучше. Подходят сканы и фото c телефона (желательно без бликов и шумов).</p></details>
-        <details class="reveal"><summary>Сколько это стоит?</summary><p>Оживление одного фото — 85 ₽ в боте. Индивидуальный ролик «под ключ» рассчитывается по брифу.</p></details>
-        <details class="reveal"><summary>Можно ли выбрать музыку?</summary><p>Да. Для проектов «под ключ» подберём или загрузим вашу музыку с учётом прав.</p></details>
-        <details class="reveal"><summary>Как храните мои данные?</summary><p>Передача по HTTPS, удаление после завершения работы согласно политике.</p></details>
-      </div>
-    </section>
-    <section id="order" aria-labelledby="order-title">
-      <div class="container cta">
-        <div class="panel reveal">
-          <h2 id="order-title" style="margin:0 0 6px">Готовы оживить память?</h2>
-          <p class="section-note">Начните в Telegram — или закажите видео «под ключ».</p>
-          <div style="display:flex; gap:10px; flex-wrap:wrap">
-            <a class="btn primary glow" href="https://t.me/podarokphoto_bot?start=web" target="_blank" rel="noopener"><span>Оживить фото</span> ✨</a>
-            <a class="btn" href="https://t.me/podarokphoto_bot?start=order" target="_blank" rel="noopener">Заказать видео под ключ</a>
-          </div>
-        </div>
-        <div class="panel reveal">
-          <h3 style="margin:0 0 10px">Что мы делаем «под ключ»</h3>
-          <ul style="margin:0; padding-left:18px; line-height:1.7">
-            <li>Подбор и очистка исходных фото</li>
-            <li>Реставрация, колоризация, лёгкая анимация</li>
-            <li>Монтаж, музыка, титры, формат для соцсетей</li>
-            <li>Доставка готового файла и материалов</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-  </main>
-  <div class="sticky-cta">
-    <div class="inner">
-      <a class="btn primary glow" href="https://t.me/podarokphoto_bot?start=web" target="_blank" rel="noopener"><span>Оживить фото</span> ✨</a>
-      <a class="btn" href="#how">Как это работает</a>
-    </div>
+    </nav>
   </div>
-  <footer>
-    <div class="container" style="display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap">
-      <div>© <span id="y"></span> Живые Фото</div>
-      <nav aria-label="Ссылки подвала" style="display:flex; gap:16px">
-        <a href="#">Политика конфиденциальности</a>
-        <a href="#">Поддержка</a>
-      </nav>
-    </div>
-  </footer>
-  <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Какие фото подходят?","acceptedAnswer":{"@type":"Answer","text":"Чем выше качество исходника — тем лучше. Подходят сканы и фото с телефона без бликов."}},{"@type":"Question","name":"Сколько это стоит?","acceptedAnswer":{"@type":"Answer","text":"Оживление одного фото — 85 ₽ в боте. Индивидуальный ролик рассчитывается по брифу."}},{"@type":"Question","name":"Можно ли выбрать музыку?","acceptedAnswer":{"@type":"Answer","text":"Да, подберём или используем вашу музыку с учётом прав."}},{"@type":"Question","name":"Как храните данные?","acceptedAnswer":{"@type":"Answer","text":"Передача по HTTPS, удаление после завершения работы согласно политике."}}]}
-  </script>
-  <script defer>
-    (function(){
-      if(location.protocol==='http:'||location.protocol==='https:'){
-        const vids=document.querySelectorAll('video[data-src]');
-        const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const v=e.target;if(!v.src){v.src=v.dataset.src;}io.unobserve(v);}})},{threshold:.15});
-        vids.forEach(v=>io.observe(v));
-      }
-    })();
+</header>
 
-    document.getElementById('y').textContent = new Date().getFullYear();
-    const io = new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in-view');io.unobserve(e.target);}})},{threshold:.18});
-    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-    const slider = document.getElementById('ba');
-    if(slider){
-      const range=slider.querySelector('.range');
-      const after=slider.querySelector('.after');
-      const grip=slider.querySelector('.grip');
-      const dot=slider.querySelector('.dot');
-      const setSplit=v=>{const pct=Math.max(0,Math.min(100,Number(v)));after.style.clipPath=`inset(0 0 0 ${pct}%)`;grip.style.left=dot.style.left=pct+'%'};
-      setSplit(50);
-      if(range){range.addEventListener('input',e=>setSplit(e.target.value));}
-      slider.addEventListener('pointerdown',ev=>{const r=slider.getBoundingClientRect();const move=x=>setSplit(((x-r.left)/r.width*100).toFixed(2));move(ev.clientX);const onMove=e=>move(e.clientX);const onUp=()=>{window.removeEventListener('pointermove',onMove);window.removeEventListener('pointerup',onUp)};window.addEventListener('pointermove',onMove);window.addEventListener('pointerup',onUp)});
+<main>
+  <section class="container hero">
+    <div>
+      <span class="pill">Быстро • Конфиденциально • Просто</span>
+      <h1 class="h1">Оживим вашу фотографию в трогательное видео</h1>
+      <p class="lead">Вернём эмоции и память: одно фото — одно маленькое чудо за <b>85 ₽</b>. Идеально для подарка, семейного архива и тёплого сюрприза близким.</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap" class="aos">
+        <a class="btn" href="https://t.me/podarokphoto_bot?start=web" target="_blank" rel="noopener">Оживить фото</a>
+        <a class="btn btn-ghost" href="https://t.me/podarokphoto_bot?start=order" target="_blank" rel="noopener">Видео под ключ</a>
+      </div>
+      <p class="hint" style="margin-top:14px">Подсказка: загрузите фото как в альбоме — голова сверху, земля снизу.</p>
+    </div>
+    <figure class="media aos" aria-label="Видео-превью результата">
+      <video src="https://nikitasolonukha.github.io/lending/%D0%B2%D0%B8%D0%B4%D0%B5%D0%BE/Video%20(2).mp4" autoplay muted playsinline loop preload="metadata"></video>
+      <div class="glow" aria-hidden="true"></div>
+    </figure>
+  </section>
+
+  <section class="container sec">
+    <h2 class="title">Как это работает</h2>
+    <div class="grid">
+      <div class="card step aos">
+        <div class="num" aria-hidden="true">1</div>
+        <div>
+          <h3 style="margin:0 0 6px">Откройте бота</h3>
+          <p class="muted">Перейдите в <b>@podarokphoto_bot</b> и нажмите кнопку «Оживить фото».</p>
+        </div>
+      </div>
+      <div class="card step aos">
+        <div class="num" aria-hidden="true">2</div>
+        <div>
+          <h3 style="margin:0 0 6px">Отправьте фотографию</h3>
+          <p class="muted">Лучше чёткий портрет. Формат — как в альбоме: голова сверху, земля снизу.</p>
+        </div>
+      </div>
+      <div class="card step aos">
+        <div class="num" aria-hidden="true">3</div>
+        <div>
+          <h3 style="margin:0 0 6px">Опишите, что оживить</h3>
+          <p class="muted">Моргание, лёгкая улыбка, поворот головы — напишите пожелания.</p>
+        </div>
+      </div>
+      <div class="card step aos">
+        <div class="num" aria-hidden="true">4</div>
+        <div>
+          <h3 style="margin:0 0 6px">Получите видео</h3>
+          <p class="muted">Через несколько мгновений бот пришлёт готовое короткое видео.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container sec emo">
+    <div class="aos">
+      <h2 class="title">Память, которая снова дышит</h2>
+      <p class="muted" style="font-size:18px">Иногда одной секунды достаточно, чтобы вернуться в тёплый момент. Оживлённое фото — это забота о семейной истории, деликатная реставрация и живое «я рядом», которое можно пересматривать снова и снова.</p>
+      <p class="muted">Подарите трепет родителям, поздравьте друзей, сохраните память о дорогом человеке — бережно и со вкусом.</p>
+    </div>
+    <figure class="image aos" aria-label="Эмоциональный образ">
+      <img loading="lazy" data-src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?q=80&auto=format&fit=crop&w=1200&h=900" alt="Старая фотография в руках на фоне света">
+    </figure>
+  </section>
+
+  <section class="container sec">
+    <h2 class="title">Примеры «До/После»</h2>
+    <div class="slider aos" id="beforeAfter" aria-label="Слайдер до и после">
+      <img class="img" src="https://images.unsplash.com/photo-1542037104857-ffbb0b9155fb?q=80&auto=format&fit=crop&w=1600&h=1000" alt="Фото до">
+      <img class="img after" src="https://images.unsplash.com/photo-1542213493895-edf5b94f5a2b?q=80&auto=format&fit=crop&w=1600&h=1000" alt="Фото после">
+      <div class="handle" aria-hidden="true">
+        <div class="bar"></div>
+        <div class="knob"></div>
+      </div>
+      <input class="visually-hidden" type="range" min="0" max="100" value="50" aria-label="Ползунок сравнения">
+    </div>
+  </section>
+
+  <section class="container sec">
+    <h2 class="title">Тарифы</h2>
+    <div class="prices">
+      <div class="card price aos">
+        <h3 style="margin:0">Оживить одно фото</h3>
+        <div class="rub">85 ₽</div>
+        <div class="bullets">
+          <div>Короткое трогательное видео</div>
+          <div>Лёгкая реставрация и анимация</div>
+          <div>Конфиденциальность и бережность</div>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:6px">
+          <a class="btn" href="https://t.me/podarokphoto_bot?start=web" target="_blank" rel="noopener">Оживить фото</a>
+          <span class="pill" aria-hidden="true">Готово за минуты</span>
+        </div>
+      </div>
+      <div class="card price aos">
+        <h3 style="margin:0">Видео под ключ</h3>
+        <div class="rub">Индивидуально</div>
+        <div class="bullets">
+          <div>Сюжет, музыка, стилизация</div>
+          <div>Монтаж из нескольких фото</div>
+          <div>Персональный продюсер</div>
+        </div>
+        <a class="btn btn-ghost" href="https://t.me/podarokphoto_bot?start=order" target="_blank" rel="noopener">Обсудить задачу</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="container sec">
+    <h2 class="title">Отзывы</h2>
+    <div class="reviews card aos" aria-roledescription="карусель отзывов">
+      <div class="track" id="reviewsTrack">
+        <div class="card review">
+          <blockquote>«Мама расплакалась от счастья. Словно увидела папу снова. Спасибо за деликатность и скорость!»</blockquote>
+          <footer>— Анастасия, Санкт-Петербург</footer>
+        </div>
+        <div class="card review">
+          <blockquote>«Подарили бабушке на юбилей — весь стол смотрел и улыбался. Цена символическая, эмоции бесценны.»</blockquote>
+          <footer>— Иван, Казань</footer>
+        </div>
+        <div class="card review">
+          <blockquote>«Отправила одно фото из архива — через пару минут получила видео. Очень аккуратно и бережно.»</blockquote>
+          <footer>— Елена, Екатеринбург</footer>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container sec">
+    <h2 class="title">FAQ</h2>
+    <details class="aos">
+      <summary>Какие фотографии подходят лучше всего?</summary>
+      <p class="muted">Чёткие портреты, где лицо смотрит вперёд. Старайтесь загружать фото «как в альбоме»: голова сверху, земля снизу.</p>
+    </details>
+    <details class="aos">
+      <summary>Сколько стоит и что входит в 85 ₽?</summary>
+      <p class="muted">85 ₽ — оживление одного фото и короткое видео с деликатной анимацией (моргание, лёгкая мимика, аккуратный поворот).</p>
+    </details>
+    <details class="aos">
+      <summary>Можно ли добавить музыку?</summary>
+      <p class="muted">Да. В базовой версии — без музыки. В «Видео под ключ» мы подберём трек и сделаем монтаж.</p>
+    </details>
+    <details class="aos">
+      <summary>Как вы храните и защищаете данные?</summary>
+      <p class="muted">Мы относимся к материалам бережно: фото используются только для обработки и не публикуются. По запросу удалим их после завершения.</p>
+    </details>
+    <details class="aos">
+      <summary>Сколько времени занимает создание видео?</summary>
+      <p class="muted">Обычно минуты. Сложные проекты «под ключ» обсуждаются индивидуально.</p>
+    </details>
+    <details class="aos">
+      <summary>Можно ли оживить несколько фото сразу?</summary>
+      <p class="muted">Да, отправьте по одному фото в чате с ботом или опишите задачу для пакета «под ключ».</p>
+    </details>
+  </section>
+
+  <section class="container sec center">
+    <h2 class="title">Готовы вернуть тёплые эмоции?</h2>
+    <div class="cta-final aos">
+      <a class="btn" href="https://t.me/podarokphoto_bot?start=web" target="_blank" rel="noopener" aria-label="Перейти к боту для оживления фото">Оживить фото — 85 ₽</a>
+      <a class="btn btn-ghost" href="https://t.me/podarokphoto_bot?start=order" target="_blank" rel="noopener" aria-label="Заказать индивидуальное видео">Видео под ключ</a>
+    </div>
+  </section>
+</main>
+
+<div class="sticky-cta" role="region" aria-label="Быстрые действия">
+  <span class="pricechip" aria-hidden="true">85 ₽</span>
+  <a class="btn" href="https://t.me/podarokphoto_bot?start=web" target="_blank" rel="noopener">Оживить фото</a>
+  <a class="btn btn-ghost" href="https://t.me/podarokphoto_bot?start=order" target="_blank" rel="noopener">Под ключ</a>
+</div>
+
+<footer>
+  © Живые Фото · @podarokphoto_bot · Сделано с заботой
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Какие фотографии подходят лучше всего?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Четкие портреты, где лицо смотрит вперед. Загружайте фото «как в альбоме»: голова сверху, земля снизу."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Сколько стоит и что входит в 85 ₽?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "85 ₽ — оживление одного фото и короткое видео с деликатной анимацией (моргание, мимика, аккуратный поворот)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Можно ли добавить музыку?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Да. В базовой версии — без музыки. В «Видео под ключ» подберем трек и сделаем монтаж."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Как вы храните и защищаете данные?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Фото используются только для обработки и не публикуются. По запросу удалим материалы после завершения."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Сколько времени занимает создание видео?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Обычно минуты. Сложные проекты «под ключ» обсуждаются индивидуально."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Можно ли оживить несколько фото сразу?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Да, отправляйте по одному фото боту или оформите пакет в «Видео под ключ»."
+      }
     }
-    const carousel=document.getElementById('carousel');
-    if(carousel){
-      const slides=carousel.querySelector('.slides');
-      const total=slides.children.length;const dots=carousel.querySelector('.dots');let i=0,timer;function go(n){i=(n+total)%total;slides.style.transform=`translateX(-${100*i}%)`;[...dots.children].forEach((d,idx)=>d.classList.toggle('active',idx===i));}
-      for(let k=0;k<total;k++){const b=document.createElement('button');b.addEventListener('click',()=>{go(k);restart();});dots.appendChild(b);}function restart(){clearInterval(timer);timer=setInterval(()=>go(i+1),4400);}go(0);restart();carousel.addEventListener('mouseenter',()=>clearInterval(timer));carousel.addEventListener('mouseleave',restart);
+  ]
+}
+</script>
+
+<script>
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    })
+  },{threshold:.16});
+  document.querySelectorAll('.aos, .card').forEach(el=>io.observe(el));
+
+  const lazyIO = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const img = e.target; const src = img.getAttribute('data-src');
+        if(src){ img.src = src; img.removeAttribute('data-src'); }
+        lazyIO.unobserve(img);
+      }
+    })
+  },{rootMargin:'200px 0px'});
+  document.querySelectorAll('img[loading="lazy"][data-src]').forEach(img=>lazyIO.observe(img));
+
+  const slider = document.getElementById('beforeAfter');
+  const afterImg = slider.querySelector('.after');
+  const input = slider.querySelector('input[type="range"]');
+  let dragging = false;
+  function setClip(p){
+    p = Math.max(0, Math.min(100, p));
+    afterImg.style.clipPath = `inset(0 ${100-p}% 0 0)`;
+    slider.querySelector('.bar').style.left = p+'%';
+    slider.querySelector('.knob').style.left = p+'%';
+    input.value = p;
+  }
+  setClip(50);
+  const rectPct = (clientX)=>((clientX - slider.getBoundingClientRect().left)/slider.clientWidth)*100;
+
+  slider.addEventListener('pointerdown', e=>{ dragging = true; slider.setPointerCapture(e.pointerId); setClip(rectPct(e.clientX)); });
+  slider.addEventListener('pointermove', e=>{ if(dragging) setClip(rectPct(e.clientX)); });
+  window.addEventListener('pointerup', ()=> dragging=false);
+  input.addEventListener('input', e=> setClip(e.target.value));
+
+  const track = document.getElementById('reviewsTrack');
+  let index = 0;
+  const cards = track.children.length;
+  function tick(){
+    index = (index+1)%cards;
+    const width = track.children[0].getBoundingClientRect().width + 16;
+    track.style.transform = `translateX(${-index*width}px)`;
+  }
+  let reviewTimer = setInterval(tick, 3500);
+  track.addEventListener('mouseenter', ()=> clearInterval(reviewTimer));
+  track.addEventListener('mouseleave', ()=> reviewTimer = setInterval(tick, 3500));
+
+  document.addEventListener('keydown',(e)=>{
+    if(e.key==='Tab'){
+      document.body.classList.add('show-focus');
     }
-  </script>
+  });
+</script>
 </body>
 </html>
