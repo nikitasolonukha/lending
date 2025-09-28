@@ -23,8 +23,14 @@
     }
     *{box-sizing:border-box}
     html,body{height:100%}
+
+    /* >>> ТВОЁ ЦЕНТРИРОВАНИЕ ЧЕРЕЗ FLEX НА BODY <<< */
     body{
-      margin:0;color:var(--text);font-family:Manrope,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      display:flex;               /* делаем body флекс-контейнером */
+      flex-direction:column;      /* вертикальная колонка */
+      align-items:center;         /* центрируем ВСЕ прямые дети body по горизонтали */
+      margin:0;color:var(--text);
+      font-family:Manrope,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       background:
         radial-gradient(1200px 700px at -10% 0%,#3b1f64 0%,transparent 55%),
         radial-gradient(1000px 600px at 110% 10%,#2a1558 0%,transparent 55%),
@@ -33,6 +39,12 @@
       padding-bottom:calc(var(--sticky-h) + 28px + env(safe-area-inset-bottom,0px));
       text-wrap:balance;
     }
+
+    /* Прямые дети body должны растягиваться на всю ширину,
+       чтобы липкий бар/шапка были на 100%, при этом
+       внутренний контент центрируется через контейнеры */
+    header, main, footer, .sticky-cta { width:100% }
+
     img,video{max-width:100%;display:block}
     figure{margin:0}
     a{color:inherit}
@@ -142,14 +154,11 @@
     @media (min-width:1025px){
       .container{padding-left:28px;padding-right:28px}
 
-      /* === ИСПРАВЛЕНИЕ ЗДЕСЬ === */
-      /* Это правило правильно центрирует ВЕСЬ контент внутри секций */
-      main > .container > *{
-        max-width:1120px;
-        margin-left:auto;
-        margin-right:auto;
-      }
-      /* Мы оставляем правило выше и удаляем дублирующее и неполное правило, которое было ниже */
+      /* Центруем крупные блоки в пределах контейнера */
+      .container .hero,
+      .container .emo,
+      .container .grid,
+      .container .prices{ max-width:1120px; margin-left:auto; margin-right:auto; }
 
       .hero,.emo{
         grid-template-columns:repeat(2, minmax(0,560px));
@@ -162,7 +171,7 @@
         max-width:560px;
         width:100%;
       }
-      /* Правило для .slider-а теперь тоже не нужно, так как о нем заботится правило "main > .container > *" */
+      .slider{ max-width:1120px; margin-inline:auto; }
     }
 
     /* ===== Tablet ===== */
@@ -219,6 +228,7 @@
 </header>
 
 <main class="stack">
+  <!-- HERO -->
   <section class="container sec" style="padding-top:32px">
     <div class="hero">
       <div class="stack">
@@ -239,6 +249,7 @@
     </div>
   </section>
 
+  <!-- Как это работает -->
   <section class="container sec">
     <h2 class="title">Как это работает</h2>
     <div class="grid" style="margin-top:var(--gutter)">
@@ -249,6 +260,7 @@
     </div>
   </section>
 
+  <!-- Память / реакция -->
   <section class="container sec">
     <div class="emo">
       <figure class="glass tall aos" aria-label="Вертикальное видео реакции">
@@ -266,6 +278,7 @@
     </div>
   </section>
 
+  <!-- Примеры До/После -->
   <section class="container sec">
     <h2 class="title">Примеры «До/После»</h2>
     <div class="slider aos" id="beforeAfter" style="margin-top:var(--gutter)">
@@ -281,6 +294,7 @@
     <p class="muted" style="margin-top:10px">До — фото. После — живое видео.</p>
   </section>
 
+  <!-- Тарифы -->
   <section class="container sec avoid-sticky">
     <h2 class="title">Тарифы</h2>
     <div class="prices" style="margin-top:var(--gutter)">
@@ -302,6 +316,7 @@
     </div>
   </section>
 
+  <!-- Отзывы -->
   <section class="container sec">
     <h2 class="title">Отзывы</h2>
     <div class="reviews card aos" aria-roledescription="карусель отзывов" style="margin-top:var(--gutter)">
@@ -313,6 +328,7 @@
     </div>
   </section>
 
+  <!-- Финальный CTA -->
   <section class="container sec avoid-sticky" style="text-align:center">
     <h2 class="title">Готовы вернуть тёплые эмоции?</h2>
     <div class="cta-final aos" style="margin-top:var(--gutter)">
@@ -322,6 +338,7 @@
   </section>
 </main>
 
+<!-- Нижний липкий бар — БЕЗ чипа 85 ₽ -->
 <div class="sticky-cta" role="region" aria-label="Быстрые действия">
   <a class="btn" href="https://t.me/podarokphoto_bot?start=web" target="_blank" rel="noopener">Оживить фото</a>
   <a class="btn btn-ghost" href="https://t.me/podarokphoto_bot?start=order" target="_blank" rel="noopener">Под ключ</a>
