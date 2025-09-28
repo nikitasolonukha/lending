@@ -20,7 +20,7 @@
       --max:1180px;--sticky-h:70px;--gutter:28px
     }
     *{box-sizing:border-box}
-    html,body{height:100%}
+    html,body{min-height:100%}
 
     /* центрирование ВСЕГО контента */
     body{
@@ -36,6 +36,19 @@
       display:flex;
       flex-direction:column;
       align-items:center;
+    }
+    /* тянем основные блоки на всю ширину, оставаясь по центру */
+    header,
+    main,
+    footer,
+    .sticky-cta{
+      align-self: stretch;
+      width: 100%;
+    }
+    /* если IntersectionObserver недоступен — показываем .aos */
+    body.no-io .aos {
+      opacity:1;
+      transform:none;
     }
 
     img,video{max-width:100%;display:block}
@@ -365,8 +378,17 @@
     document.querySelectorAll('#heroTitle,.title,.lead,.muted').forEach(el=>{el.textContent=nbsp(el.textContent)});
   })();
 
-  /* ленивая загрузка второстепенных видео */
+  /* ленивая загрузка второстепенных видео (одна строка) */
   document.querySelectorAll('main video').forEach((v,i)=>{ if(i>0) v.loading='lazy'; });
+
+  /* если нет IntersectionObserver — включаем видимость .aos через CSS-класс */
+  try {
+    if (!('IntersectionObserver' in window)) {
+      document.body.classList.add('no-io');
+    }
+  } catch(e){
+    document.body.classList.add('no-io');
+  }
 </script>
 </body>
 </html>
