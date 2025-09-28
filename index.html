@@ -53,12 +53,14 @@
     }
     nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:18px}
     .brand{display:flex;align-items:center;gap:12px;font-weight:800}
-    .logo{width:38px;height:38px;border-radius:50%;background:#0c1627;border:1px solid #37a6ff44;box-shadow:0 0 0 2px #1a3f5a,0 10px 26px rgba(55,166,255,.25);overflow:hidden}
+    .logo{
+      width:38px;height:38px;border-radius:50%; /* круглый логотип */
+      background:#0c1627;border:1px solid #37a6ff44;
+      box-shadow:0 0 0 2px #1a3f5a,0 10px 26px rgba(55,166,255,.25);overflow:hidden}
     .logo img{width:100%;height:100%;object-fit:cover}
     .nav-cta{display:flex;gap:10px;flex-wrap:wrap}
     .btn{appearance:none;border:1px solid transparent;border-radius:999px;padding:12px 18px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#150d25;font-weight:800;text-decoration:none;box-shadow:0 10px 28px rgba(255,99,195,.28), inset 0 1px 0 rgba(255,255,255,.35);transition:transform .15s ease, box-shadow .2s ease;white-space:nowrap}
     .btn:hover{transform:translateY(-1px);box-shadow:0 16px 30px rgba(255,99,195,.34)}
-    .btn:focus-visible{outline:3px solid #fff2;outline-offset:3px}
     .btn-ghost{background:transparent;color:var(--text);border:1px solid var(--stroke);box-shadow:var(--shadow)}
     .pill{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;border:1px solid var(--stroke);background:linear-gradient(90deg,#291846,#16102d);color:var(--muted);font-size:12px;font-weight:800;letter-spacing:.25px;text-transform:uppercase}
 
@@ -76,9 +78,6 @@
     .hero .media video{aspect-ratio:16/9;object-fit:cover}
 
     .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-    .step{display:flex;gap:12px}
-    .num{flex:0 0 36px;height:36px;border-radius:12px;display:grid;place-items:center;font-weight:800;background:linear-gradient(135deg,#3d2a6d,#23183f);border:1px solid var(--stroke);color:#d9ccff}
-
     .emo{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:center}
     .tall{display:grid;place-items:center;background:linear-gradient(180deg,#0b0713,#130a22)}
     .tall .frame{width:min(100%,540px);aspect-ratio:9/16;border-radius:18px;border:1px solid var(--stroke);box-shadow:inset 0 0 0 1px rgba(255,255,255,.03), 0 8px 22px rgba(0,0,0,.45);background:#000;overflow:hidden;margin-inline:auto}
@@ -88,21 +87,16 @@
     .slider .base{width:100%;display:block;aspect-ratio:16/9;object-fit:cover}
     .slider .after{position:absolute;inset:0;clip-path:inset(0 50% 0 0)}
     .slider .after video{width:100%;height:100%;object-fit:cover;display:block}
-    .slider .handle{position:absolute;inset:0;pointer-events:none}
     .slider .bar{position:absolute;top:0;bottom:0;width:2px;left:50%;transform:translateX(-50%);background:linear-gradient(180deg,var(--accent),var(--accent2))}
     .slider .knob{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));border:3px solid #160e29;box-shadow:0 10px 24px rgba(177,92,255,.35)}
 
     .prices{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
-    .rub{font-size:clamp(26px,3vw,38px);font-weight:800;color:#ffe6ff}
-    .bullets{display:grid;gap:8px;color:var(--muted);font-size:14px}
-
     .reviews{position:relative;overflow:hidden}
     .track{display:flex;gap:16px;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
     .review{min-width:calc(50% - 8px)}
-    .review blockquote{margin:0;color:#f3ecff}
-    .review footer{margin-top:10px;color:#cfc4ea;font-size:14px}
-
     .cta-final{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+    /* Sticky-бар без чипа 85₽ */
     .sticky-cta{
       position:fixed;left:0;right:0;
       bottom:calc(env(safe-area-inset-bottom,0px) + 6px);
@@ -114,15 +108,18 @@
       height:var(--sticky-h)
     }
     .sticky-cta .btn{padding:12px 16px}
-    .pricechip{font-weight:800;color:#120a1f;background:linear-gradient(135deg,#9cf6d3,#7ef0b6);border-radius:999px;padding:8px 12px}
-
-    .aos{opacity:0;transform:translateY(16px) scale(.985);transition:transform .6s cubic-bezier(.2,.8,.2,1),opacity .6s ease}
-    .aos.in{opacity:1;transform:none}
 
     footer{padding:60px 0 calc(120px + env(safe-area-inset-bottom,0px));color:#a896d7;text-align:center}
 
+    /* адаптивность */
     @media (min-width:1025px){
-      .container{padding-left:28px;padding-right:28px}
+      .container .hero,
+      .container .emo,
+      .container .grid,
+      .container .prices{ max-width:1120px; margin-left:auto; margin-right:auto; }
+      .hero,.emo{grid-template-columns:repeat(2, minmax(0,560px));justify-content:center;justify-items:center;column-gap:40px;}
+      .hero .stack,.hero .media,.emo .tall,.emo .stack{justify-self:center;max-width:560px;width:100%;}
+      .slider{ max-width:1120px; margin-inline:auto; }
     }
     @media (max-width:1024px){
       .grid{grid-template-columns:repeat(2,1fr)}
@@ -130,62 +127,23 @@
       .hero,.emo{grid-template-columns:1fr}
     }
     @media (max-width:640px){
-      :root{--gutter:22px}
-      .sec + .sec{padding-top:calc(var(--gutter)*2)}
       .btn{width:100%;text-align:center}
-      .nav-cta{gap:8px}
       .grid,.prices{grid-template-columns:1fr}
       .glass,.slider,.tall{border-radius:18px}
       .hero{grid-template-columns:1fr;gap:var(--gutter)}
-      .h1{font-size:30px;line-height:1.08}
-      .lead{font-size:15px}
-      .slider .knob{width:44px;height:44px}
       .tall .frame{width:100%;border-radius:18px}
-      .avoid-sticky{padding-bottom:calc(var(--sticky-h) + 28px + env(safe-area-inset-bottom,0px))}
-      .logo{border-radius:12px;}
-      .pricechip{border-radius:12px;padding:6px 10px;}
-      .sticky-cta .btn{border-radius:12px;}
     }
-    @media (max-width:380px){
-      .container{padding-left:14px;padding-right:14px}
-      .h1{font-size:28px}
-    }
-
-    /* === FIX: центрирование на десктопе === */
-    @media (min-width:1025px){
-      .hero,
-      .emo{
-        grid-template-columns: repeat(2, minmax(0,560px));
-        justify-content: center;
-        justify-items: center;
-        column-gap:40px;
-      }
-      .hero .stack,
-      .hero .media,
-      .emo .tall,
-      .emo .stack{
-        justify-self:center !important;
-        max-width:560px;
-        width:100%;
-      }
-      .slider{max-width:1120px;margin-inline:auto;}
-    }
-    @media (prefers-reduced-motion: reduce){
-      .aos{transition:none}
-      .track{transition:none}
-    }
-    .visually-hidden{position:absolute!important;height:1px;width:1px;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap}
   </style>
 </head>
 <body>
-<header aria-label="Верхняя навигация">
+<header>
   <div class="container">
     <nav>
       <div class="brand">
         <div class="logo"><img id="logo-img" alt="Логотип"></div>
         <span>Живые Фото</span>
       </div>
-      <div class="nav-cta" role="navigation" aria-label="Основные действия">
+      <div class="nav-cta">
         <a class="btn" href="https://t.me/podarokphoto_bot?start=web" target="_blank" rel="noopener">Оживить фото — 85 ₽</a>
         <a class="btn btn-ghost" href="https://t.me/podarokphoto_bot?start=order" target="_blank" rel="noopener">Видео под ключ</a>
       </div>
@@ -199,15 +157,15 @@
     <div class="hero">
       <div class="stack">
         <span class="pill">Быстро • Конфиденциально • Просто</span>
-        <h1 class="h1" id="heroTitle">Оживим вашу фотографию в трогательное видео</h1>
+        <h1 class="h1">Оживим вашу фотографию в трогательное видео</h1>
         <p class="lead">Одно фото — <b>85 ₽</b>. Идеально для подарка и семейной памяти.</p>
-        <div class="aos" style="display:flex;gap:10px;flex-wrap:wrap">
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
           <a class="btn" href="https://t.me/podarokphoto_bot?start=web" target="_blank" rel="noopener">Оживить фото</a>
           <a class="btn btn-ghost" href="https://t.me/podarokphoto_bot?start=order" target="_blank" rel="noopener">Видео под ключ</a>
         </div>
         <p class="hint">Загрузите фото как в альбоме: голова сверху, земля снизу.</p>
       </div>
-      <figure class="glass aos media" aria-label="Видео-превью результата">
+      <figure class="glass media">
         <video autoplay muted playsinline loop preload="metadata">
           <source src="Video (2).mp4" type="video/mp4">
         </video>
@@ -215,12 +173,11 @@
     </div>
   </section>
 
-  <!-- … остальные секции такие же, как у тебя … -->
-
+  <!-- дальше твои блоки (как это работает, эмо и т.д.) -->
 </main>
 
-<div class="sticky-cta" role="region" aria-label="Быстрые действия">
-  <span class="pricechip" aria-hidden="true">85 ₽</span>
+<!-- СТИКИ-БАР БЕЗ ЦЕНЫ -->
+<div class="sticky-cta">
   <a class="btn" href="https://t.me/podarokphoto_bot?start=web" target="_blank" rel="noopener">Оживить фото</a>
   <a class="btn btn-ghost" href="https://t.me/podarokphoto_bot?start=order" target="_blank" rel="noopener">Под ключ</a>
 </div>
@@ -228,7 +185,7 @@
 <footer>© Живые Фото · @podarokphoto_bot</footer>
 
 <script>
-  /* твои JS как был */
+  // тут твои JS-инициализации (слайдер, lazy-load и т.д.)
 </script>
 </body>
 </html>
