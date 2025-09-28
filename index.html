@@ -165,7 +165,10 @@
       .hero,.emo{grid-template-columns:repeat(2,minmax(0,560px));justify-content:center;justify-items:center;column-gap:40px}
       .hero .stack,.hero .media,.emo .tall,.emo .stack{justify-self:center;max-width:560px;width:100%}
       .slider{max-width:100%;margin:0 auto;width:100%}
-      .nav-cta .btn{padding:12px 24px;min-width:160px}
+      .nav-cta .btn{padding:12px 30px;min-width:200px;white-space:nowrap}
+    }
+    @media (min-width:769px) and (max-width:1024px){
+      .nav-cta .btn{padding:12px 28px;min-width:190px;white-space:nowrap}
     }
     @media (max-width:1024px){
       .grid{grid-template-columns:repeat(2,1fr)}
