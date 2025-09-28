@@ -142,12 +142,14 @@
     @media (min-width:1025px){
       .container{padding-left:28px;padding-right:28px}
 
-      /* ПРАВКА: Удалено избыточное правило main > .container > * */
-
-      .container .hero,
-      .container .emo,
-      .container .grid,
-      .container .prices{ max-width:1120px; margin-left:auto; margin-right:auto; }
+      /* === ИСПРАВЛЕНИЕ ЗДЕСЬ === */
+      /* Это правило правильно центрирует ВЕСЬ контент внутри секций */
+      main > .container > *{
+        max-width:1120px;
+        margin-left:auto;
+        margin-right:auto;
+      }
+      /* Мы оставляем правило выше и удаляем дублирующее и неполное правило, которое было ниже */
 
       .hero,.emo{
         grid-template-columns:repeat(2, minmax(0,560px));
@@ -160,7 +162,7 @@
         max-width:560px;
         width:100%;
       }
-      .slider{ max-width:1120px; margin-inline:auto; }
+      /* Правило для .slider-а теперь тоже не нужно, так как о нем заботится правило "main > .container > *" */
     }
 
     /* ===== Tablet ===== */
