@@ -24,32 +24,33 @@
 
     /* центрирование ВСЕГО контента */
     body{
-      margin:0;color:var(--text);font-family:Manrope,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      background:
-        radial-gradient(1200px 700px at -10% 0%,#3b1f64 0%,transparent 55%),
-        radial-gradient(1000px 600px at 110% 10%,#2a1558 0%,transparent 55%),
-        linear-gradient(180deg,var(--bg1),var(--bg2));
-      overflow-x:hidden;
-      padding-bottom:calc(var(--sticky-h) + 28px + env(safe-area-inset-bottom,0px));
-      text-wrap:balance;
+  margin:0;
+  color:var(--text);
+  font-family:Manrope,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  background:
+    radial-gradient(1200px 700px at -10% 0%,#3b1f64 0%,transparent 55%),
+    radial-gradient(1000px 600px at 110% 10%,#2a1558 0%,transparent 55%),
+    linear-gradient(180deg,var(--bg1),var(--bg2));
+  overflow-x:hidden;
+  padding-bottom:calc(var(--sticky-h) + 28px + env(safe-area-inset-bottom,0px));
+  text-wrap:balance;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  min-height:100vh;
+}
 
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-    }
-    /* тянем основные блоки на всю ширину, оставаясь по центру */
-    header,
-    main,
-    footer,
-    .sticky-cta{
-      align-self: stretch;
-      width: 100%;
-    }
+   
+   
     /* если IntersectionObserver недоступен — показываем .aos */
     body.no-io .aos {
       opacity:1;
       transform:none;
     }
+    :root { --pad: clamp(16px,4vw,28px); }
+
+
+    
 
     img,video{max-width:100%;display:block}
     figure{margin:0}
@@ -59,10 +60,10 @@
     .container{
       max-width:var(--max);
       width:100%;
-      margin-left:auto;margin-right:auto;
+      margin:0 auto;
       padding-left:clamp(16px,4vw,28px);
       padding-right:clamp(16px,4vw,28px);
-      text-align:center; /* визуально центрируем контент внутри */
+      text-align:center;
     }
 
     /* шапка */
@@ -71,6 +72,8 @@
       background:linear-gradient(180deg,rgba(15,10,26,.92),rgba(15,10,26,.5) 65%,transparent);
       backdrop-filter:saturate(140%) blur(8px);
       width:100%;
+      display:flex;
+      justify-content:center;
     }
     nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:18px;flex-wrap:wrap}
     .brand{display:flex;align-items:center;gap:12px;font-weight:800}
@@ -102,9 +105,10 @@
     .card{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.03));border:1px solid var(--stroke);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);text-align:left}
 
     /* HERO */
-    .hero{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2.4vw,28px);align-items:center}
+    .hero{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2.4vw,28px);align-items:center;width:100%}
     .h1{font-size:clamp(30px,3.9vw,64px);line-height:1.04;font-weight:800;margin:0}
-    .hero .media video{aspect-ratio:16/9;object-fit:cover}
+    .hero .media{width:100%;max-width:100%}
+    .hero .media video{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
 
     /* HOW */
     .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
@@ -154,14 +158,13 @@
       width:100%;
     }
 
-    footer{padding:60px 0 calc(120px + env(safe-area-inset-bottom,0px));color:#a896d7;text-align:center;width:100%}
+    footer{padding:60px 0 calc(120px + env(safe-area-inset-bottom,0px));color:#a896d7;text-align:center;width:100%;display:flex;justify-content:center}
 
     /* адаптив/центровка сеток */
     @media (min-width:1025px){
-      main > .container > *{max-width:1120px;margin-left:auto;margin-right:auto}
       .hero,.emo{grid-template-columns:repeat(2,minmax(0,560px));justify-content:center;justify-items:center;column-gap:40px}
       .hero .stack,.hero .media,.emo .tall,.emo .stack{justify-self:center;max-width:560px;width:100%}
-      .slider{max-width:1120px;margin-inline:auto}
+      .slider{max-width:100%;margin:0 auto;width:100%}
     }
     @media (max-width:1024px){
       .grid{grid-template-columns:repeat(2,1fr)}
@@ -198,7 +201,7 @@
   <div class="container">
     <nav>
       <div class="brand">
-        <div class="logo"><img src="logo.jpg" alt="Логотип" decoding="async"></div>
+        <div class="logo"><img src="logo.png.jpg" alt="Логотип" decoding="async"></div>
         <span>Живые Фото</span>
       </div>
       <div class="nav-cta" role="navigation" aria-label="Основные действия">
@@ -293,7 +296,9 @@
         <h3 style="margin:0">Видео под ключ</h3>
         <div class="rub">Индивидуально</div>
         <div class="bullets"><div>Сюжет, музыка, монтаж</div><div>Несколько фото и стили</div><div>Персональный продюсер</div></div>
-        <a class="btn btn-ghost" href="https://t.me/podarokphoto_bot?start=order" target="_blank" rel="noopener">Обсудить задачу</a>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;justify-content:center">
+          <a class="btn btn-ghost" href="https://t.me/podarokphoto_bot?start=order" target="_blank" rel="noopener">Обсудить задачу</a>
+        </div>
       </div>
     </div>
   </section>
@@ -338,12 +343,10 @@
   const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.16});
   document.querySelectorAll('.aos,.card').forEach(el=>io.observe(el));
 
-  /* фото ДО — перебор вариантов пути (если файл в /видео2/) */
+  /* фото ДО — используем ваш файл */
   (function(){
     const before=document.getElementById('beforePhoto');
-    const opts=['видео2/photo_2025-09-27_22-37-35.jpg','видео2/photo.jpg','видео2/photo.png','видео2/photo.jpeg'];
-    let i=0;function next(){if(i>=opts.length)return;before.src=opts[i++];before.onerror=next}
-    next();
+    before.src='photo.jpg';
   })();
 
   /* слайдер до/после */
