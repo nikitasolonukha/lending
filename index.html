@@ -142,12 +142,7 @@
     @media (min-width:1025px){
       .container{padding-left:28px;padding-right:28px}
 
-      /* UNIVERSAL center on desktop */
-      main > .container > *{
-        max-width:1120px;
-        margin-left:auto;
-        margin-right:auto;
-      }
+      /* ПРАВКА: Удалено избыточное правило main > .container > * */
 
       .container .hero,
       .container .emo,
@@ -222,7 +217,6 @@
 </header>
 
 <main class="stack">
-  <!-- HERO -->
   <section class="container sec" style="padding-top:32px">
     <div class="hero">
       <div class="stack">
@@ -243,7 +237,6 @@
     </div>
   </section>
 
-  <!-- Как это работает -->
   <section class="container sec">
     <h2 class="title">Как это работает</h2>
     <div class="grid" style="margin-top:var(--gutter)">
@@ -254,7 +247,6 @@
     </div>
   </section>
 
-  <!-- Память / реакция -->
   <section class="container sec">
     <div class="emo">
       <figure class="glass tall aos" aria-label="Вертикальное видео реакции">
@@ -272,7 +264,6 @@
     </div>
   </section>
 
-  <!-- Примеры До/После -->
   <section class="container sec">
     <h2 class="title">Примеры «До/После»</h2>
     <div class="slider aos" id="beforeAfter" style="margin-top:var(--gutter)">
@@ -288,7 +279,6 @@
     <p class="muted" style="margin-top:10px">До — фото. После — живое видео.</p>
   </section>
 
-  <!-- Тарифы -->
   <section class="container sec avoid-sticky">
     <h2 class="title">Тарифы</h2>
     <div class="prices" style="margin-top:var(--gutter)">
@@ -310,7 +300,6 @@
     </div>
   </section>
 
-  <!-- Отзывы -->
   <section class="container sec">
     <h2 class="title">Отзывы</h2>
     <div class="reviews card aos" aria-roledescription="карусель отзывов" style="margin-top:var(--gutter)">
@@ -322,7 +311,6 @@
     </div>
   </section>
 
-  <!-- Финальный CTA -->
   <section class="container sec avoid-sticky" style="text-align:center">
     <h2 class="title">Готовы вернуть тёплые эмоции?</h2>
     <div class="cta-final aos" style="margin-top:var(--gutter)">
@@ -332,7 +320,6 @@
   </section>
 </main>
 
-<!-- Нижний липкий бар — БЕЗ чипа 85 ₽ -->
 <div class="sticky-cta" role="region" aria-label="Быстрые действия">
   <a class="btn" href="https://t.me/podarokphoto_bot?start=web" target="_blank" rel="noopener">Оживить фото</a>
   <a class="btn btn-ghost" href="https://t.me/podarokphoto_bot?start=order" target="_blank" rel="noopener">Под ключ</a>
