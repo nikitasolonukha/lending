@@ -147,20 +147,24 @@
 
     /* ===== Phone ===== */
     @media (max-width:640px){
-      :root{--gutter:22px}
-      .sec + .sec{padding-top:calc(var(--gutter)*2)}
-      .btn{width:100%;text-align:center}
-      .nav-cta{gap:8px}
-      .grid,.prices{grid-template-columns:1fr}
-      .glass,.slider,.tall{border-radius:18px}
-      .hero{grid-template-columns:1fr;gap:var(--gutter)}
-      .h1{font-size:30px;line-height:1.08}
-      .lead{font-size:15px}
-      .slider .knob{width:44px;height:44px}
-      .tall .frame{width:100%;border-radius:18px}
-      /* Доп. буфер в секциях с кнопками, чтобы CTA не перекрывал */
-      .avoid-sticky{padding-bottom:calc(var(--sticky-h) + 28px + env(safe-area-inset-bottom,0px))}
-    }
+  :root{--gutter:22px}
+  .sec + .sec{padding-top:calc(var(--gutter)*2)}
+  .btn{width:100%;text-align:center}
+  .nav-cta{gap:8px}
+  .grid,.prices{grid-template-columns:1fr}
+  .glass,.slider,.tall{border-radius:18px}
+  .hero{grid-template-columns:1fr;gap:var(--gutter)}
+  .h1{font-size:30px;line-height:1.08}
+  .lead{font-size:15px}
+  .slider .knob{width:44px;height:44px}
+  .tall .frame{width:100%;border-radius:18px}
+  .avoid-sticky{padding-bottom:calc(var(--sticky-h) + 28px + env(safe-area-inset-bottom,0px))}
+
+  .logo{border-radius:12px;}
+  .pricechip{border-radius:12px;padding:6px 10px;}
+  .sticky-cta .btn{border-radius:12px;}
+}
+
 
     @media (max-width:380px){
       .container{padding-left:14px;padding-right:14px}
