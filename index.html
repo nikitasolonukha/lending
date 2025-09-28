@@ -30,15 +30,14 @@
         radial-gradient(1000px 600px at 110% 10%,#2a1558 0%,transparent 55%),
         linear-gradient(180deg,var(--bg1),var(--bg2));
       overflow-x:hidden;
-      /* общий буфер под липкий CTA */
       padding-bottom:calc(var(--sticky-h) + 28px + env(safe-area-inset-bottom,0px));
-      text-wrap:balance
+      text-wrap:balance;
     }
     img,video{max-width:100%;display:block}
     figure{margin:0}
     a{color:inherit}
 
-    /* Центрированный контейнер для всех секций */
+    /* Центрированный контейнер */
     .container{
       max-width:var(--max);
       width:100%;
@@ -73,7 +72,7 @@
     .glass{border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--stroke);background:#0b0713;box-shadow:0 10px 30px rgba(0,0,0,.35)}
     .card{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.03));border:1px solid var(--stroke);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
 
-    /* HERO — по центру, симметрично */
+    /* HERO */
     .hero{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2.4vw,28px);align-items:center}
     .h1{font-size:clamp(30px,3.9vw,64px);line-height:1.04;font-weight:800;margin:0}
     .hero .media video{aspect-ratio:16/9;object-fit:cover}
@@ -131,11 +130,31 @@
 
     footer{padding:60px 0 calc(120px + env(safe-area-inset-bottom,0px));color:#a896d7;text-align:center}
 
-    /* ===== Desktop (≥1025px): как на ноуте, по центру ===== */
+    /* ===== Desktop (≥1025px): симметрично и по центру ===== */
     @media (min-width:1025px){
       .container{padding-left:28px;padding-right:28px}
-      .hero{grid-template-columns:1fr 1fr}
-      .emo{grid-template-columns:1fr 1fr}
+
+      /* Герой: две равные колонки, сетка центрируется в контейнере */
+      .hero{
+        grid-template-columns:minmax(0,560px) minmax(0,560px);
+        justify-content:center;
+        align-items:center;
+        column-gap:40px;
+      }
+      .hero .stack{max-width:560px;justify-self:end}
+      .hero .media{justify-self:start}
+      .hero .media video{aspect-ratio:16/9}
+
+      /* Блок эмоций (вертикальное видео + текст) */
+      .emo{
+        grid-template-columns:minmax(0,520px) minmax(0,520px);
+        justify-content:center;
+        column-gap:40px;
+      }
+      .tall .frame{width:520px}
+
+      /* Слайдер до/после — аккуратно по центру в контейнере */
+      .slider{max-width:1120px;margin-left:auto;margin-right:auto}
     }
 
     /* ===== Tablet ===== */
@@ -147,24 +166,24 @@
 
     /* ===== Phone ===== */
     @media (max-width:640px){
-  :root{--gutter:22px}
-  .sec + .sec{padding-top:calc(var(--gutter)*2)}
-  .btn{width:100%;text-align:center}
-  .nav-cta{gap:8px}
-  .grid,.prices{grid-template-columns:1fr}
-  .glass,.slider,.tall{border-radius:18px}
-  .hero{grid-template-columns:1fr;gap:var(--gutter)}
-  .h1{font-size:30px;line-height:1.08}
-  .lead{font-size:15px}
-  .slider .knob{width:44px;height:44px}
-  .tall .frame{width:100%;border-radius:18px}
-  .avoid-sticky{padding-bottom:calc(var(--sticky-h) + 28px + env(safe-area-inset-bottom,0px))}
+      :root{--gutter:22px}
+      .sec + .sec{padding-top:calc(var(--gutter)*2)}
+      .btn{width:100%;text-align:center}
+      .nav-cta{gap:8px}
+      .grid,.prices{grid-template-columns:1fr}
+      .glass,.slider,.tall{border-radius:18px}
+      .hero{grid-template-columns:1fr;gap:var(--gutter)}
+      .h1{font-size:30px;line-height:1.08}
+      .lead{font-size:15px}
+      .slider .knob{width:44px;height:44px}
+      .tall .frame{width:100%;border-radius:18px}
+      .avoid-sticky{padding-bottom:calc(var(--sticky-h) + 28px + env(safe-area-inset-bottom,0px))}
 
-  .logo{border-radius:12px;}
-  .pricechip{border-radius:12px;padding:6px 10px;}
-  .sticky-cta .btn{border-radius:12px;}
-}
-
+      /* Не «капсулы» на мобиле */
+      .logo{border-radius:12px;}
+      .pricechip{border-radius:12px;padding:6px 10px;}
+      .sticky-cta .btn{border-radius:12px;}
+    }
 
     @media (max-width:380px){
       .container{padding-left:14px;padding-right:14px}
@@ -328,7 +347,7 @@
     let i=0;function next(){if(i>=opts.length)return;img.src=opts[i++];img.onerror=next} next();
   })();
 
-  /* Фото «До» из папки видео2/ */
+  /* Фото «До» */
   (function(){
     const before=document.getElementById('beforePhoto');
     const opts=['видео2/photo.jpg','видео2/photo.png','видео2/photo.jpeg','видео2/photo_2025-09-27_22-37-35.jpg'];
@@ -361,7 +380,7 @@
     track.addEventListener('mouseleave',()=>t=setInterval(tick,3500));
   }
 
-  /* Микротипографика: «в/к/и…» не висят в начале строк */
+  /* Неразрывные предлоги */
   (function(){
     const nbsp=s=>s.replace(/(^|\s)([вксуаои])\s(?=\S)/gi,(_p,sp,one)=>`${sp}${one}\u00A0`);
     document.querySelectorAll('#heroTitle,.title,.lead,.muted').forEach(el=>{el.textContent=nbsp(el.textContent)});
