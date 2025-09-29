@@ -105,8 +105,9 @@
     .card{background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.03));border:1px solid var(--stroke);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);text-align:left}
 
     /* HERO */
-    .hero{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,2.4vw,28px);align-items:center;width:100%}
-    .h1{font-size:clamp(30px,3.9vw,64px);line-height:1.04;font-weight:800;margin:0}
+    .hero{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,3vw,40px);align-items:center;width:100%}
+    .h1{font-size:clamp(36px,4.5vw,72px);line-height:1.1;font-weight:800;margin:0;margin-bottom:16px}
+    .hero .lead{font-size:clamp(18px,2vw,24px);margin-bottom:24px}
     .hero .media{width:100%;max-width:100%}
     .hero .media video{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
 
@@ -289,7 +290,7 @@
         <span>Живые Фото</span>
       </div>
       <div class="nav-cta" role="navigation" aria-label="Основные действия">
-        <a class="btn" href="https://t.me/podarokphoto_bot?start=web" target="_blank" rel="noopener">Оживить фото — 85 ₽</a>
+        <a class="btn" href="https://t.me/podarokphoto_bot?start=web" target="_blank" rel="noopener">Оживить фото — $1</a>
         <a class="btn btn-ghost" href="https://t.me/podarokphoto_bot?start=order" target="_blank" rel="noopener">Видео под ключ</a>
       </div>
     </nav>
@@ -301,14 +302,13 @@
   <section class="container sec" style="padding-top:32px">
     <div class="hero">
       <div class="stack">
-        <span class="pill">Быстро • Конфиденциально • Просто</span>
+        <span class="pill">Telegram-бот • Быстро • Конфиденциально</span>
         <h1 class="h1" id="heroTitle">Оживим вашу фотографию в трогательное видео</h1>
-        <p class="lead">Одно фото — <b>85 ₽</b>. Идеально для подарка и семейной памяти.</p>
+        <p class="lead">Одно фото — <b>$1</b>. Оплата из любой страны. Идеально для подарка и семейной памяти.</p>
         <div class="aos" style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">
           <a class="btn" href="https://t.me/podarokphoto_bot?start=web" target="_blank" rel="noopener">Оживить фото</a>
           <a class="btn btn-ghost" href="https://t.me/podarokphoto_bot?start=order" target="_blank" rel="noopener">Видео под ключ</a>
         </div>
-        <p class="hint">Загрузите фото как в альбоме: голова сверху, земля снизу.</p>
       </div>
       <figure class="glass aos media" aria-label="Видео-превью результата">
         <video autoplay muted playsinline loop preload="metadata">
@@ -322,8 +322,8 @@
   <section class="container sec">
     <h2 class="title">Как это работает</h2>
     <div class="grid" style="margin-top:var(--gutter)">
-      <div class="card step aos"><div class="num">1</div><div><h3 style="margin:0 0 6px">Откройте бота</h3><p class="muted">Перейдите в <b>@podarokphoto_bot</b> и нажмите «Оживить фото».</p></div></div>
-      <div class="card step aos"><div class="num">2</div><div><h3 style="margin:0 0 6px">Отправьте фотографию</h3><p class="muted">Чёткий портрет. Ориентация «как в альбоме».</p></div></div>
+      <div class="card step aos"><div class="num">1</div><div><h3 style="margin:0 0 6px">Откройте Telegram-бота</h3><p class="muted">Перейдите в <b>@podarokphoto_bot</b> и нажмите «Оживить фото».</p></div></div>
+      <div class="card step aos"><div class="num">2</div><div><h3 style="margin:0 0 6px">Отправьте фотографию</h3><p class="muted">Чёткий портрет для лучшего результата.</p></div></div>
       <div class="card step aos"><div class="num">3</div><div><h3 style="margin:0 0 6px">Опишите пожелания</h3><p class="muted">Моргание, лёгкая улыбка, аккуратный поворот.</p></div></div>
       <div class="card step aos"><div class="num">4</div><div><h3 style="margin:0 0 6px">Получите видео</h3><p class="muted">Готовый ролик — в чате.</p></div></div>
     </div>
@@ -342,7 +342,7 @@
       <div class="stack aos">
         <h2 class="title">Память, которая снова дышит</h2>
         <p class="lead">Оживлённое фото — бережная реставрация и эмоции, к которым хочется возвращаться.</p>
-        <p class="muted">Тёплый подарок с историей.</p>
+        <p class="muted">Тёплый подарок с историей через Telegram-бота.</p>
       </div>
     </div>
   </section>
@@ -369,11 +369,11 @@
     <div class="prices" style="margin-top:var(--gutter)">
       <div class="card aos">
         <h3 style="margin:0">Оживить одно фото</h3>
-        <div class="rub">85 ₽</div>
+        <div class="rub">$1</div>
         <div class="bullets"><div>Короткое трогательное видео</div><div>Лёгкая реставрация и анимация</div><div>Конфиденциальность</div></div>
         <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;justify-content:center">
           <a class="btn" href="https://t.me/podarokphoto_bot?start=web" target="_blank" rel="noopener">Оживить фото</a>
-          <span class="pill" aria-hidden="true">Готово за минуты</span>
+          <span class="pill" aria-hidden="true">За 5 минут</span>
         </div>
       </div>
       <div class="card aos">
@@ -401,9 +401,9 @@
 
   <!-- FINAL CTA -->
   <section class="container sec avoid-sticky" style="text-align:center">
-    <h2 class="title">Готовы вернуть тёплые эмоции?</h2>
+    <h2 class="title">Готовы вернуть тёплые эмоции через Telegram-бота?</h2>
     <div class="cta-final aos" style="margin-top:var(--gutter)">
-      <a class="btn" href="https://t.me/podarokphoto_bot?start=web" target="_blank" rel="noopener">Оживить фото — 85 ₽</a>
+      <a class="btn" href="https://t.me/podarokphoto_bot?start=web" target="_blank" rel="noopener">Оживить фото — $1</a>
       <a class="btn btn-ghost" href="https://t.me/podarokphoto_bot?start=order" target="_blank" rel="noopener">Видео под ключ</a>
     </div>
   </section>
@@ -415,7 +415,13 @@
   <a class="btn btn-ghost" href="https://t.me/podarokphoto_bot?start=order" target="_blank" rel="noopener">Под ключ</a>
 </div>
 
-<footer>© Живые Фото · @podarokphoto_bot</footer>
+<footer style="display:block;text-align:center">
+  <div>© Живые Фото · @podarokphoto_bot</div>
+  <div style="margin-top:8px;font-size:11px;color:#8a7ba7;line-height:1.2">
+    Данин Даниил Константинович<br>
+    ИНН: 771671829585
+  </div>
+</footer>
 
 <!-- FAQ JSON-LD -->
 <script type="application/ld+json">
