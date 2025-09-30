@@ -200,6 +200,20 @@
       .hint{font-size:10px;padding:4px 6px;margin-top:4px}
       .brand{font-size:14px}
       .logo{width:36px;height:36px}
+      
+      /* Адаптив для раздела услуг */
+      .prices .card{padding:12px;margin-bottom:8px}
+      .prices .card h3{font-size:16px}
+      .prices .card p{font-size:12px}
+      .prices .card .bullets div{font-size:11px;margin-bottom:2px}
+      .prices .card .btn{width:100%;max-width:100%;padding:8px 12px;font-size:12px;margin:0}
+      /* Иконки услуг на мобильных */
+      .prices .card div[style*="width:48px"]{width:36px;height:36px;font-size:16px}
+      /* Сетка монтажа видеофильма */
+      .card div[style*="grid-template-columns:repeat(auto-fit"]{grid-template-columns:repeat(2,1fr);gap:8px}
+      .card div[style*="padding:16px"]{padding:10px}
+      .card div[style*="font-size:20px"]{font-size:16px}
+      .card div[style*="font-size:11px"]{font-size:9px}
     }
     @media (max-width:380px){
       .container{padding-left:4px;padding-right:4px}
@@ -214,6 +228,19 @@
       .pill{font-size:7px;padding:1px 2px}
       .brand{font-size:12px}
       .logo{width:32px;height:32px}
+      
+      /* Адаптив для очень маленьких экранов */
+      .prices .card{padding:8px;margin-bottom:6px}
+      .prices .card h3{font-size:14px}
+      .prices .card p{font-size:10px}
+      .prices .card .bullets div{font-size:9px}
+      .prices .card .btn{padding:6px 8px;font-size:10px}
+      .prices .card div[style*="width:48px"]{width:28px;height:28px;font-size:14px}
+      /* Сетка монтажа видеофильма для маленьких экранов */
+      .card div[style*="grid-template-columns:repeat(auto-fit"]{grid-template-columns:1fr;gap:6px}
+      .card div[style*="padding:16px"]{padding:8px}
+      .card div[style*="font-size:20px"]{font-size:14px}
+      .card div[style*="font-size:11px"]{font-size:8px}
     }
     
     /* Universal mobile browser fixes */
@@ -365,25 +392,94 @@
 
   <!-- PRICING -->
   <section class="container sec avoid-sticky">
-    <h2 class="title">Тарифы</h2>
+    <h2 class="title">Наши услуги</h2>
+    <p class="lead" style="margin-bottom:40px">Выберите подходящий вариант для ваших воспоминаний</p>
+    
     <div class="prices" style="margin-top:var(--gutter)">
+      <!-- Реставрация -->
       <div class="card aos">
-        <h3 style="margin:0">Оживить одно фото</h3>
-        <div class="rub">$1</div>
-        <div class="bullets"><div>Короткое трогательное видео</div><div>Лёгкая реставрация и анимация</div><div>Конфиденциальность</div></div>
-        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;justify-content:center">
-          <a class="btn" href="https://t.me/podarokphoto_bot?start=web" target="_blank" rel="noopener">Оживить фото</a>
-          <span class="pill" aria-hidden="true">За 5 минут</span>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+          <div style="width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#4a90e2,#357abd);display:flex;align-items:center;justify-content:center;font-size:20px">🔧</div>
+          <div>
+            <h3 style="margin:0;font-size:18px">Реставрация фотографий</h3>
+            <p style="margin:4px 0 0;color:var(--muted);font-size:14px">Устранение царапин, цветокоррекция</p>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+          <span style="font-size:24px;font-weight:800;color:#ffe6ff">$0.6</span>
+          <span style="font-size:12px;color:var(--muted)">за фото</span>
+        </div>
+        <div class="bullets" style="margin-bottom:16px">
+          <div>• Убираем царапины и повреждения</div>
+          <div>• Восстанавливаем цвета</div>
+          <div>• Улучшаем качество</div>
+        </div>
+        <a class="btn btn-ghost" href="https://t.me/podarokphoto_bot?start=order" target="_blank" rel="noopener" style="width:100%">Заказать реставрацию</a>
+      </div>
+
+      <!-- Оживление -->
+      <div class="card aos">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+          <div style="width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:20px">✨</div>
+          <div>
+            <h3 style="margin:0;font-size:18px">Оживление фотографий</h3>
+            <p style="margin:4px 0 0;color:var(--muted);font-size:14px">Анимирование для видео</p>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+          <span style="font-size:24px;font-weight:800;color:#ffe6ff">$1</span>
+          <span style="font-size:12px;color:var(--muted)">за фото</span>
+        </div>
+        <div class="bullets" style="margin-bottom:16px">
+          <div>• Моргание и лёгкие движения</div>
+          <div>• Трогательное видео за 5 минут</div>
+          <div>• Идеально для подарков</div>
+        </div>
+        <a class="btn" href="https://t.me/podarokphoto_bot?start=web" target="_blank" rel="noopener" style="width:100%">Оживить фото</a>
+      </div>
+    </div>
+
+    <!-- Монтаж видеофильма -->
+    <div class="card aos" style="margin-top:24px;max-width:800px;margin-left:auto;margin-right:auto">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+        <div style="width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#ff6b6b,#ee5a52);display:flex;align-items:center;justify-content:center;font-size:20px">🎬</div>
+        <div>
+          <h3 style="margin:0;font-size:18px">Монтаж видеофильма</h3>
+          <p style="margin:4px 0 0;color:var(--muted);font-size:14px">С анимированными фото и музыкальным сопровождением</p>
         </div>
       </div>
-      <div class="card aos">
-        <h3 style="margin:0">Видео под ключ</h3>
-        <div class="rub">Индивидуально</div>
-        <div class="bullets"><div>Сюжет, музыка, монтаж</div><div>Несколько фото и стили</div><div>Персональный продюсер</div></div>
-        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;justify-content:center">
-          <a class="btn btn-ghost" href="https://t.me/podarokphoto_bot?start=order" target="_blank" rel="noopener">Обсудить задачу</a>
+      
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:20px">
+        <div style="padding:16px;background:rgba(255,255,255,.05);border-radius:12px;border:1px solid var(--stroke);text-align:center">
+          <div style="font-size:14px;color:var(--muted);margin-bottom:4px">10 фото</div>
+          <div style="font-size:20px;font-weight:800;color:#ffe6ff">$35</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:2px">$3.5 за фото</div>
+        </div>
+        <div style="padding:16px;background:rgba(255,255,255,.05);border-radius:12px;border:1px solid var(--stroke);text-align:center">
+          <div style="font-size:14px;color:var(--muted);margin-bottom:4px">20 фото</div>
+          <div style="font-size:20px;font-weight:800;color:#ffe6ff">$59</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:2px">$2.95 за фото</div>
+        </div>
+        <div style="padding:16px;background:rgba(255,255,255,.05);border-radius:12px;border:1px solid var(--stroke);text-align:center">
+          <div style="font-size:14px;color:var(--muted);margin-bottom:4px">30 фото</div>
+          <div style="font-size:20px;font-weight:800;color:#ffe6ff">$82</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:2px">$2.73 за фото</div>
+        </div>
+        <div style="padding:16px;background:rgba(255,255,255,.05);border-radius:12px;border:1px solid var(--stroke);text-align:center">
+          <div style="font-size:14px;color:var(--muted);margin-bottom:4px">40 фото</div>
+          <div style="font-size:20px;font-weight:800;color:#ffe6ff">$104</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:2px">$2.6 за фото</div>
         </div>
       </div>
+
+      <div class="bullets" style="margin-bottom:16px">
+        <div>• Профессиональный монтаж</div>
+        <div>• Музыкальное сопровождение</div>
+        <div>• Эффекты и переходы</div>
+        <div>• Готовый видеофильм</div>
+      </div>
+      
+      <a class="btn btn-ghost" href="https://t.me/podarokphoto_bot?start=order" target="_blank" rel="noopener" style="width:100%">Заказать видеофильм</a>
     </div>
   </section>
 
